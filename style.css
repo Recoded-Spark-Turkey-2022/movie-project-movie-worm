@@ -9,3 +9,11 @@
 #actors {
     margin: 24px 16px 0 0;
 }
+a{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+a:hover{
+    color: brown;
+    text-decoration: none;
+}
