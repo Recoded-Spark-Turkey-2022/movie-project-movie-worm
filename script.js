@@ -5,6 +5,9 @@ const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
 
+// This my api key
+const apiKey = '00c07d6d1de18f45f48a74210ba62760'
+
 // Don't touch this function please
 const autorun = async () => {
   const movies = await fetchMovies();
@@ -77,5 +80,37 @@ const renderMovie = (movie) => {
             <ul id="actors" class="list-unstyled"></ul>
     </div>`;
 };
+
+
+// Getting movie genres 
+fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`)
+.then(resp => resp.json())
+.then(json => {
+
+  const dropDownMovies = document.getElementById('drop-down')
+  const genresListJson = json.genres
+  
+
+  for(let i = 0; i < genresListJson.length; i++){
+
+    const option = document.createElement('option')
+    option.value = genresListJson[i].name
+    option.textContent = genresListJson[i].name
+
+    dropDownMovies.appendChild(option)
+  }
+  
+  //add a function that will limit the result in dropdown menu and enable scrolling down/up within the options.
+  //https://stackoverflow.com/questions/8788245/how-can-i-limit-the-visible-options-in-an-html-select-dropdown
+  //https://jsfiddle.net/88cxzhom/27/
+
+})
+
+
+
+
+
+
+
 
 document.addEventListener("DOMContentLoaded", autorun);
