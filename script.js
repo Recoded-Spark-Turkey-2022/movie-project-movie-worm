@@ -97,12 +97,13 @@ fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=
     option.value = genresListJson[i].name
     option.textContent = genresListJson[i].name
 
+  
     dropDownMovies.appendChild(option)
   }
-  
-  //add a function that will limit the result in dropdown menu and enable scrolling down/up within the options.
-  //https://stackoverflow.com/questions/8788245/how-can-i-limit-the-visible-options-in-an-html-select-dropdown
-  //https://jsfiddle.net/88cxzhom/27/
+
+
+
+
 
 })
 
