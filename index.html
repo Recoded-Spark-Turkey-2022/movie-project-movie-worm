@@ -6,13 +6,66 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Movie</title>
 </head>
 
 <body>
+                                    <!-- Navbar -->
+    <nav class="flex flex-row justify-around bg-slate-100 h-2/12">
+
+                <!-- Left part of Navbar -->
+<div class="flex flex-row justify-around items-center mt-1 w-4/12">
+
+        <!-- Our logo -->
+    <div> 
+        <img class= 'w-16' src="/Screenshot at Nov 12 11-38-55.png" alt="logo">
+    </div>
+        <!-- Search box -->
+    <div>
+        <input type="text" placeholder="Search.." name="search" class="border border-slate-400 rounded-lg">
+    </div>
+</div>
+
+                <!-- Right part of Navbar  -->
+    <div class="flex flex-row justify-center gap-1 items-center mt-1 w-6/12">
+
+        <!-- Dropdown menu -->
+        <div class="w-3/12">
+            <select name="drop-down" id="drop-down" class="border border-slate-400 p-1 w-full rounded-lg text-center h-8">
+                <option disabled selected>Movies</option>
+                <option value="horror">Horror</option>
+                <option value="comedy">Comedy</option>
+                <option value="family">Family</option>
+                <option value="kids">Kids</option>
+            </select>
+        </div>
+        <!-- Other buttons -->
+        <div class="w-3/12">
+            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-8">Home</button>
+        </div>
+        <div class="w-3/12">
+            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-8 shrink">Actor List</button>
+        </div>
+        <div class="w-3/12">
+            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-8">About Us</button>
+        </div>
+    </div>
+</div>
+
+</nav>
+
+
+
+<main class="h-8/12">
     <div class="container">
     </div>
-    <script type="text/javascript" src="script.js"></script>
+</main>
+   
+
+
+
+<script type="text/javascript" src="script.js"></script>
 </body>
 
 </html>
