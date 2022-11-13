@@ -44,19 +44,40 @@ const fetchMovie = async (movieId) => {
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   movies.map((movie) => {
+    
     const movieDiv = document.createElement("div");
-    movieDiv.id = 'movie-div'
+    movieDiv.id = 'movie'
     movieDiv.innerHTML = `
         <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
       movie.title
     } poster">
-        <h3>${movie.title}</h3>`;
+       <div class='info'>
+        <h3>${movie.title}</h3>
+        
+        <span id="genres">${movie.genres}</span>
+        <span class="${coloring(movie.vote_average)}">${movie.vote_average}/10</span> 
+        </div>
+        <div class='small-info'>
+        <p>${movie.overview} </p>
+        </div>`;
+        
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
     });
     CONTAINER.appendChild(movieDiv);
   });
 };
+function coloring(vote) {
+  if(vote>= 8){
+      return 'green'
+  }
+  else if(vote >= 5){
+      return "orange"
+  }
+  else{
+      return 'red'
+  }
+}
 
 
 // You'll need to play with this function in order to add features and enhance the style.
