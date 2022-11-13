@@ -11,44 +11,40 @@
 </head>
 
 <body>
-                                    <!-- Navbar -->
-    <nav class="flex flex-row justify-around bg-slate-100 h-2/12">
-
+              <!-- Navbar -->
+              <nav class="flex flex-col lg:flex-row lg:justify-around lg:items-stretch bg-slate-100 h-4/12 lg:h-2/12 gap-2">
                 <!-- Left part of Navbar -->
-<div class="flex flex-row justify-around items-center mt-1 w-4/12">
+<div class="flex flex-col justify-center items-center lg:flex-row lg:justify-around lg:items-center mt-1 lg:w-4/12 w-full">
 
         <!-- Our logo -->
     <div> 
-        <img class= 'w-16' src="/Screenshot at Nov 12 11-38-55.png" alt="logo">
+        <img class= 'lg:w-16' src="/Screenshot at Nov 12 11-38-55.png" alt="logo">
     </div>
         <!-- Search box -->
-    <div>
-        <input type="text" placeholder="Search.." name="search" class="border border-slate-400 rounded-lg">
+    <div class="flex items-center justify-center w-full">
+        <input type="text" placeholder="Search.." name="search" class="border w-8/12 border-slate-400 rounded-lg">
     </div>
 </div>
 
                 <!-- Right part of Navbar  -->
-    <div class="flex flex-row justify-center gap-1 items-center mt-1 w-6/12">
+    <div class="flex flex-row justify-center gap-1 lg:w-6/12 w-full">
 
         <!-- Dropdown menu -->
         <div class="w-3/12">
-            <select name="drop-down" id="drop-down" class="border border-slate-400 p-1 w-full rounded-lg text-center h-8">
+            <select name="drop-down" id="drop-down" class="border border-slate-400 p-1 w-full rounded-lg text-center h-full">
                 <option disabled selected>Movies</option>
-                <option value="horror">Horror</option>
-                <option value="comedy">Comedy</option>
-                <option value="family">Family</option>
-                <option value="kids">Kids</option>
+                
             </select>
         </div>
         <!-- Other buttons -->
-        <div class="w-3/12">
-            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-8">Home</button>
+        <div class="w-3/12 sm:h-full h-14">
+            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full">Home</button>
         </div>
-        <div class="w-3/12">
-            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-8 shrink">Actor List</button>
+        <div class="w-3/12 sm:h-full h-14">
+            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full shrink">Actor List</button>
         </div>
-        <div class="w-3/12">
-            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-8">About Us</button>
+        <div class="w-3/12 sm:h-full h-14">
+            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full">About Us</button>
         </div>
     </div>
 </div>
@@ -61,8 +57,72 @@
     <div class="container">
     </div>
 </main>
-   
 
+
+<footer class="w-full flex flex-col items-center gap-2 bg-slate-100">
+    <!-- Coperight part -->
+    <div class="w-full flex flex-col items-center justify-center border-b-2 border-slate-400 text-center p-1">
+        <p>
+            This website is protected by International copyright laws. Reproduction and usage without written permission is prohibited.
+        </p>
+        <p> <strong>© All Rights Reserved - 2022</strong> 
+
+        </p>
+
+    </div>
+    <!-- Credit part -->
+    <div class="flex flex-col w-5/6 items-center justify-center  md:flex-row md:w-full md:items-start
+     md:justify-center gap-2">
+            <!-- Brief info about project -->
+        <div class="w-full md:w-4/6 flex flex-col items-center justify-start text-center gap-1 p-1">
+            <p class="font-bold text-xl">
+                About the project
+            </p>
+            <p class="p-1">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt ut dolores deleniti ratione modi qui id iste accusantium et delectus?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error, natus deserunt qui earum nihil architecto eveniet mollitia aspernatur numquam velit.
+            </p>
+        </div>
+
+            <!-- Github accounts of developers -->
+        <div class="flex flex-col items-center gap-1 justify-center w-3/6 lg:w-2/6 pb-2">
+            <p class="font-bold text-xl">
+                Contributors
+            </p>
+            <!-- Dilara -->
+            <div class="w-full md:w-3/6">
+                <a href="https://github.com/dilaracetinberk" target="_blank" class="flex flex-row items-center justify-start gap-2">
+                    <img class="h-6" src="/GitHub-Mark-120px-plus.png" alt="Github-logo">
+                    <p>dilaracetinberk</p>
+                </a>
+            </div>
+
+            <!-- Kuday -->
+            <div class="w-full md:w-3/6">
+                <a href="https://github.com/kogunlu" target="_blank" class="flex flex-row items-center justify-start gap-2">
+                    <img class="h-6" src="/GitHub-Mark-120px-plus.png" alt="Github-logo">
+                    <p>kogunlu</p>
+                </a>
+            </div>
+
+            <!-- Hadi -->
+            <div class="w-full md:w-3/6">
+                <a href="https://github.com/Hadizios" target="_blank" class="flex flex-row items-center justify-start gap-2">
+                    <img class="h-6" src="/GitHub-Mark-120px-plus.png" alt="Github-logo">
+                    <p>Hadizios</p>
+                </a>
+            </div>
+
+            <!-- Abdullah -->
+            <div class="w-full md:w-3/6">
+                <a href="https://github.com/Abdullah-Naifeh" target="_blank" class="flex flex-row items-center justify-start gap-2">
+                    <img class="h-6" src="/GitHub-Mark-120px-plus.png" alt="Github-logo">
+                    <p>Abdullah-Naifeh</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
 
 
 <script type="text/javascript" src="script.js"></script>
