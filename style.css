@@ -1,7 +1,7 @@
 #movie-backdrop {
     width: 100%;
 }
-
+/* 
 .container {
     padding-top: 32px;
     display: flex;
@@ -88,4 +88,30 @@ a:hover{
 }
 body{
     background-color: rgb(12, 5, 17);
+} */
+#movie{
+    width: 15em;
+    height: auto;
+
+    margin: 1rem;
+    border-radius: 3px;
+    box-shadow: 0.2px 4px 5px rgba(0,0,0,0.1);
+    background-color:rgb(21, 20, 34);
+    position:relative;
+    overflow: hidden;
+}
+.small-info{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:rgba(243, 196, 79, 0.7);
+    padding: 1rem;
+    max-height: 100%;
+    transform:translateY(101%);
+    transition:transform 0.3s ease-in;
+    font-family: 'Montserrat', sans-serif;
+}
+#movie:hover .small-info{
+    transform:translateY(0)
 }

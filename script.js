@@ -47,10 +47,9 @@ const renderMovies = (movies) => {
     
     const movieDiv = document.createElement("div");
     movieDiv.id = 'movie'
+    movieDiv.className += ''
     movieDiv.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
-      movie.title
-    } poster">
+        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster" class='h-3/6'>
        <div class='info'>
         <h3>${movie.title}</h3>
         
