@@ -12,39 +12,39 @@
 
 <body>
               <!-- Navbar -->
-              <nav class="flex flex-row justify-around bg-slate-100 h-2/12">
+              <nav class="flex flex-col lg:flex-row lg:justify-around lg:items-stretch bg-slate-100 h-4/12 lg:h-2/12 gap-2">
                 <!-- Left part of Navbar -->
-<div class="flex flex-row justify-around items-center mt-1 w-4/12">
+<div class="flex flex-col justify-center items-center lg:flex-row lg:justify-around lg:items-center mt-1 lg:w-4/12 w-full">
 
         <!-- Our logo -->
     <div> 
-        <img class= 'w-16' src="/Screenshot at Nov 12 11-38-55.png" alt="logo">
+        <img class= 'lg:w-16' src="/Screenshot at Nov 12 11-38-55.png" alt="logo">
     </div>
         <!-- Search box -->
-    <div>
-        <input type="text" placeholder="Search.." name="search" class="border border-slate-400 rounded-lg">
+    <div class="flex items-center justify-center w-full">
+        <input type="text" placeholder="Search.." name="search" class="border w-8/12 border-slate-400 rounded-lg">
     </div>
 </div>
 
                 <!-- Right part of Navbar  -->
-    <div class="flex flex-row justify-center gap-1 items-center mt-1 w-6/12">
+    <div class="flex flex-row justify-center gap-1 lg:w-6/12 w-full">
 
         <!-- Dropdown menu -->
         <div class="w-3/12">
-            <select name="drop-down" id="drop-down" class="border border-slate-400 p-1 w-full rounded-lg text-center h-8">
+            <select name="drop-down" id="drop-down" class="border border-slate-400 p-1 w-full rounded-lg text-center h-full">
                 <option disabled selected>Movies</option>
                 
             </select>
         </div>
         <!-- Other buttons -->
-        <div class="w-3/12">
-            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-8">Home</button>
+        <div class="w-3/12 sm:h-full h-14">
+            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full">Home</button>
         </div>
-        <div class="w-3/12">
-            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-8 shrink">Actor List</button>
+        <div class="w-3/12 sm:h-full h-14">
+            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full shrink">Actor List</button>
         </div>
-        <div class="w-3/12">
-            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-8">About Us</button>
+        <div class="w-3/12 sm:h-full h-14">
+            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full">About Us</button>
         </div>
     </div>
 </div>
@@ -57,14 +57,6 @@
     <div class="container">
     </div>
 </main>
-
-
-
-<main class="h-8/12">
-    <div class="container">
-    </div>
-</main>
-   
 
 
 
