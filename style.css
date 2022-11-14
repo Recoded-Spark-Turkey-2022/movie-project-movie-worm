@@ -13,3 +13,7 @@
 #filterDiv {
     display: none;
 }
+
+#genre-filter{
+    display: block;
+}

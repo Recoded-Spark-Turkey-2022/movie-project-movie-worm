@@ -83,6 +83,8 @@ const renderMovie = (movie) => {
 
 
 // Getting movie genres 
+let isGenreSelected = false
+
 fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`)
 .then(resp => resp.json())
 .then(json => {
@@ -102,12 +104,11 @@ fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=
   }
 
   dropDownMovies.addEventListener('change', (e) => {
-    console.log(e.target.value)
+    isGenreSelected = true
 
     fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${e.target.value}&with_watch_monetization_types=flatrate`)
     .then(resp => resp.json())
     .then(json => {
-      console.log(json.results)
 
       CONTAINER.innerHTML =''
       renderMovies(json.results)
@@ -156,13 +157,16 @@ filterBtn.addEventListener('click', () => {
   }else{
     filterDiv.style.display = 'block'
 
-          //Also fetch genres to show in filter box
+    if(isGenreSelected == false){
+    document.getElementById('genre-filter').style.display = 'block'  
+
+    //Also fetch genres to show in filter box
     fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`)
     .then(resp => resp.json())
     .then(json => {
       const genreListFilter = document.getElementById('genre-filter')
       const genresListJson = json.genres
-      
+
     
       for(let i = 0; i < genresListJson.length; i++){
     
@@ -177,6 +181,11 @@ filterBtn.addEventListener('click', () => {
         selectedGenreId = e.target.value
       })
     })
+    }else{
+    document.getElementById('genre-filter').style.display = 'none'  
+    }
+
+   
   }
 })
 
