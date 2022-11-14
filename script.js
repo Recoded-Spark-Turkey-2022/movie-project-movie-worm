@@ -41,6 +41,7 @@ const fetchMovie = async (movieId) => {
   return res.json();
 };
 
+
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   movies.map((movie) => {
@@ -68,13 +69,13 @@ const renderMovies = (movies) => {
 };
 function coloring(vote) {
   if(vote>= 8){
-      return 'green'
+      return "green"
   }
   else if(vote >= 5){
       return "orange"
   }
   else{
-      return 'red'
+      return "red"
   }
 }
 
