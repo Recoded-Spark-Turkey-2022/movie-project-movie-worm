@@ -119,6 +119,12 @@ fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=
 
 })
 
+// Home Button function
+const homeBtn = document.getElementById('homeBtn')
+homeBtn.addEventListener('click', () => {
+  window.location.reload()
+})
+
 
 
 
