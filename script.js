@@ -122,12 +122,62 @@ fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=
 // Home Button function
 const homeBtn = document.getElementById('homeBtn')
 homeBtn.addEventListener('click', () => {
-  window.location.reload()
+window.location.href = "./index.html"
 })
 
 
 
+// Actors List Page
+ const ActorListBtn = document.getElementById('Actor_list')
+ const MainDiv = document.getElementById('main-content')
+ 
+ ActorListBtn.addEventListener('click' , () => {
+  fetch('https://api.themoviedb.org/3/person/popular?api_key=625cc5d6d6b0bd1d25f0e5c74c55dd1e&language=en-US&page=1')
+  .then(res => res.json())
+  .then(json => {
+    const Allactors = json.results
 
+    CONTAINER.innerHTML = ''
+
+    for (let i = 0; i < Allactors.length; i++) { 
+      // console.log(Allactors[i]);
+      const cardContainer = document.createElement('div')
+      const img = document.createElement('img')
+      const actrorName = document.createElement('h5')
+      actrorName.innerText = Allactors[i].name
+
+    
+      cardContainer.appendChild(img)
+      cardContainer.appendChild(actrorName)
+      CONTAINER.appendChild(cardContainer)
+
+          //fetching actors photos for actor list page
+      fetch(`https://api.themoviedb.org/3/person/${Allactors[i].id}/images?api_key=${apiKey}`)
+      .then(res => res.json())
+      .then(json => {
+        // console.log(json)
+        img.setAttribute('src',BACKDROP_BASE_URL + json.profiles[0].file_path)
+      })
+      cardContainer.addEventListener('click' , () =>{
+        window.location.href = "./index.html"
+      })
+    } 
+
+
+      // CONTAINER.innerHTML.appendChild(cardContainer)
+      // CONTAINER.innerHTML = `
+      // <div class="row">
+      //     <div class="col-md-4 ">
+            
+      //     </div>
+          
+      //     <div class="col-md-8">
+      //         <h2 id="movie-title">${oneActor.name}</h2>
+      //         <p id="movie-release-date"><b>Release Date:</b> ${oneActor.id}</p>
+      //     </div>
+      // </div>`;
+  })
+ })
 
 
 
