@@ -1,5 +1,6 @@
 'use strict';
-
+const query = "";
+const searchMul = `https://api.themoviedb.org/3/search/multi`;
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
@@ -244,7 +245,7 @@ const renderMovie = (movie, credits, trailer, similarMovies) => {
             <div id='director'></div>
             <p id="original-language" class='text-orange-300'>Original Language: <span style="text-transform: uppercase;">${movie.original_language}</span></p>
             <h3 class='text-white text-2xl'>Actors:</h3>
-            <div id="actors" class="actors-slide row flex flex-wrap w-3/4" >
+            <div id="actors"  class="actors-slide row flex flex-wrap w-3/4" >
             </div>
             </div>
             
@@ -266,40 +267,8 @@ const renderMovie = (movie, credits, trailer, similarMovies) => {
     renderingActors(credits);
     renderingSimilarMovies(similarMovies);
     renderingCompanies(movie);
-    $('.actors-slide').slick({
-      dots: true,
-      infinite: false,
-      speed: 300,
-      slidesToShow: 4,
-      slidesToScroll: 4,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            infinite: true,
-            dots: true
-          }
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2
-          }
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1
-          }
-        }
-        
-      ]
-    });
-    
+
+     
 };
 
 
@@ -308,7 +277,7 @@ const renderMovie = (movie, credits, trailer, similarMovies) => {
 const renderingActors = (credits) => {
   const actorSection = document.getElementById("actors");
   
-    credits.cast.slice(0, 8).map((credit) => {
+    credits.cast.slice(0, 4).map((credit) => {
     const actorDiv = document.createElement('div');
     actorDiv.setAttribute('class','actor col h-1/5');
     const actorList = document.createElement('li');
@@ -319,7 +288,7 @@ const renderingActors = (credits) => {
           <p >${credit.name}</p>
      </div>`;
     actorList.addEventListener("click", () => {
-     //showSingleActor(credit);-------------------------Hadi is working on it
+     //showSingleActor(credit);-------------------------Kuday is working on it
     });
     actorDiv.appendChild(actorList);
 

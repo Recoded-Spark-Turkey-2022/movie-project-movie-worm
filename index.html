@@ -14,49 +14,56 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&family=Open+Sans:wght@300;600&family=Work+Sans:wght@800&display=swap" rel="stylesheet">
 </head>
 
 <body>
-       <!-- Navbar -->
-       <nav class="flex flex-col lg:flex-row lg:justify-around lg:items-stretch bg-slate-100 h-4/12 lg:h-2/12 gap-2">
-        <!-- Left part of Navbar -->
-<div class="flex flex-col justify-center items-center lg:flex-row lg:justify-around lg:items-center mt-1 lg:w-4/12 w-full">
+         <!-- Navbar -->
 
-<!-- Our logo -->
+              
+         <nav class="flex flex-col lg:flex-row lg:justify-around lg:items-stretch bg-slate-100 h-4/12 lg:h-2/12 gap-2">
+            <!-- Left part of Navbar -->
+<div class="flex flex-col justify-center items-center lg:flex-row lg:justify-around lg:items-center mt-1  w-full">
+
+    <!-- Our logo -->
 <div> 
-<img class= 'lg:w-16' src="./images/Screenshot at Nov 12 11-38-55.png" alt="logo">
+    <img class= 'lg:w-16' src="images/logo2.png" alt="logo">
 </div>
-<!-- Search box -->
-<div class="flex items-center justify-center w-full">
-<input type="text" id='search' placeholder="Search.." name="search" class="border w-8/12 border-slate-400 rounded-lg">
-</div>
-</div>
+    <!-- Search box -->
+    <div class="search-input w-2/5">
+<div class="flex items-center justify-center w-full" > 
+    <input type="text" placeholder="Search.." name="searchField" class="border w-8/12 border-slate-400 rounded-lg"
+    id="search" action="" autocomplete="off">
 
-        <!-- Right part of Navbar  -->
+<ul  id="resultsList" class="border w-8/12 border-slate-400 rounded-lg bg-red-20"> <ul>  </div>
+<div class="autoWrapper" id="autoWrapper">
+</div>
+</div>
+            <!-- Right part of Navbar  -->
 <div class="flex flex-row justify-center gap-1 lg:w-6/12 w-full">
 
-<!-- Dropdown menu -->
-<div class="w-3/12">
-    <select name="drop-down" id="drop-down" class="border border-slate-400 p-1 w-full rounded-lg text-center h-full">
-        <option disabled selected>Movies</option>
-        
-    </select>
-</div>
-<!-- Other buttons -->
-<div class="w-3/12 sm:h-full h-14">
-    <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full" id="homeBtn">Home</button>
-</div>
-<div class="w-3/12 sm:h-full h-14">
-    <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full shrink">Actor List</button>
-</div>
-<div class="w-3/12 sm:h-full h-14">
-    <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full">About Us</button>
-</div>
+    <!-- Dropdown menu -->
+    <div class="w-3/12">
+        <select name="drop-down" id="drop-down" class="border border-slate-400 p-1 w-full rounded-lg text-center h-full">
+            <option disabled selected>Movies</option>
+            
+        </select>
+    </div>
+    <!-- Other buttons -->
+    <div class="w-3/12 sm:h-full h-14">
+        <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full" id="homeBtn">Home</button>
+    </div>
+    <div class="w-3/12 sm:h-full h-14">
+        <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full shrink">Actor List</button>
+    </div>
+    <div class="w-3/12 sm:h-full h-14">
+        <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full">About Us</button>
+    </div>
 </div>
 </div>
 
@@ -75,7 +82,7 @@
             </select>
         </div>
     </section>
-    <main class="filter-menu h-8/12 flex flex-col items-center justify-center mt-2">
+    <main class="filter-menu h-8/12 flex flex-col items-center justify-center mt-2 w-2/5">
     
         <!-- Filter button -->
         <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full" id="filterBtn">Filter Movies</button>
@@ -180,8 +187,12 @@
         </div>
     </footer>
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="slick/slick.min.js"></script>
+<script type="text/javascript">
+   
+  </script>
     <script type="text/javascript" src="script.js">
        
     </script>
