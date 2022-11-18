@@ -12,6 +12,8 @@
 
 <body>
               <!-- Navbar -->
+
+              
               <nav class="flex flex-col lg:flex-row lg:justify-around lg:items-stretch bg-slate-100 h-4/12 lg:h-2/12 gap-2">
                 <!-- Left part of Navbar -->
 <div class="flex flex-col justify-center items-center lg:flex-row lg:justify-around lg:items-center mt-1 lg:w-4/12 w-full">
@@ -21,10 +23,13 @@
         <img class= 'lg:w-16' src="/Screenshot at Nov 12 11-38-55.png" alt="logo">
     </div>
         <!-- Search box -->
-    <div class="flex items-center justify-center w-full">
-        <input type="text" placeholder="Search.." name="search" class="border w-8/12 border-slate-400 rounded-lg">
+    <div class="flex flex-col items-center justify-center w-full" > 
+        <input type="text" placeholder="Search.." name="searchField" class="border w-8/12 border-slate-400 rounded-lg"
+        id="search" action="" autocomplete="off">
+
+    <ul  id="resultsList" class="border w-8/12 border-slate-400 rounded-lg bg-red-20"> <ul>  </div>
+<div class="autoWrapper" id="autoWrapper">
     </div>
-</div>
 
                 <!-- Right part of Navbar  -->
     <div class="flex flex-row justify-center gap-1 lg:w-6/12 w-full">
