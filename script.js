@@ -1,12 +1,13 @@
-'use strict';
-
+"use strict";
+const query = "";
+const searchMul = `https://api.themoviedb.org/3/search/multi`;
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
 
 // This my api key
-const apiKey = '00c07d6d1de18f45f48a74210ba62760'
+const apiKey = "87b7a72219e91c516dfe252a080dfc25";
 
 // Don't touch this function please
 const autorun = async () => {
@@ -21,7 +22,7 @@ const constructUrl = (path) => {
   )}`;
 };
 
-// You may need to add to this function, definitely don't delete it.
+// You may need to add to this function, definitely don't dele0te it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
   renderMovie(movieRes);
@@ -33,6 +34,59 @@ const fetchMovies = async () => {
   const res = await fetch(url);
   return res.json();
 };
+
+// this function is to fetch multisearch,
+function searchMovie(searchValue) {
+  return fetch(`${searchMul}?api_key=${apiKey}&query=${searchValue}`)
+    .then((response) => response.json())
+    .then((jsonData) => {
+      const go = jsonData.results;
+      return go;
+    });
+}
+
+// this function is to render the fetch ,
+function renderResult(searchResults) {
+  const tag = document.getElementById("resultsList");
+  const searchfield = document.getElementById("search");
+  if (searchfield.value.length > 0) {
+    tag.innerHTML = "";
+    const list = searchResults.slice(0, 3).map((results) => {
+      if (results.title) {
+        tag.innerHTML +=
+          `<li class="movie-search" id="${results.id}">` +
+          results.title +
+          "</li>";
+      } else if (results.name) {
+        tag.innerHTML += `<li id="${results.name}">` + results.name + "</li>";
+      }
+    });
+  } else {
+    tag.innerHTML = "";
+  }
+  createAuto(renderResult);
+
+  let elementsArray = document.querySelectorAll(".movie-search");
+
+  elementsArray.forEach(function (elem) {
+    elem.addEventListener("click", function () {
+      movieDetails({ id: parseInt(elem.id) });
+    });
+  });
+}
+
+window.onload = async () => {
+  const searchfield = document.getElementById("search");
+  searchfield.onkeyup = async (event) => {
+    const searchResults = await searchMovie(searchfield.value);
+    renderResult(searchResults);
+  };
+};
+
+function createAuto(list) {
+  const ListEl = document.createElement("resultsList");
+  listEl = "movie-search";
+}
 
 // Don't touch this function please. This function is to fetch one movie.
 const fetchMovie = async (movieId) => {
@@ -81,54 +135,43 @@ const renderMovie = (movie) => {
     </div>`;
 };
 
+// Getting movie genres
+fetch(
+  `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
+)
+  .then((resp) => resp.json())
+  .then((json) => {
+    const dropDownMovies = document.getElementById("drop-down");
+    const genresListJson = json.genres;
 
-// Getting movie genres 
-fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`)
-.then(resp => resp.json())
-.then(json => {
+    for (let i = 0; i < genresListJson.length; i++) {
+      const option = document.createElement("option");
+      option.value = genresListJson[i].id;
+      option.textContent = genresListJson[i].name;
 
-  const dropDownMovies = document.getElementById('drop-down')
-  const genresListJson = json.genres
-  
+      dropDownMovies.appendChild(option);
+    }
 
-  for(let i = 0; i < genresListJson.length; i++){
+    dropDownMovies.addEventListener("change", (e) => {
+      console.log(e.target.value);
 
-    const option = document.createElement('option')
-    option.value = genresListJson[i].id
-    option.textContent = genresListJson[i].name
+      fetch(
+        `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${e.target.value}&with_watch_monetization_types=flatrate`
+      )
+        .then((resp) => resp.json())
+        .then((json) => {
+          console.log(json.results);
 
-
-    dropDownMovies.appendChild(option)
-  }
-
-  dropDownMovies.addEventListener('change', (e) => {
-    console.log(e.target.value)
-
-    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${e.target.value}&with_watch_monetization_types=flatrate`)
-    .then(resp => resp.json())
-    .then(json => {
-      console.log(json.results)
-
-      CONTAINER.innerHTML =''
-      renderMovies(json.results)
-    })
-    
-  })
-
-
-
-})
+          CONTAINER.innerHTML = "";
+          renderMovies(json.results);
+        });
+    });
+  });
 
 // Home Button function
-const homeBtn = document.getElementById('homeBtn')
-homeBtn.addEventListener('click', () => {
-  window.location.reload()
-})
-
-
-
-
-
-
+const homeBtn = document.getElementById("homeBtn");
+homeBtn.addEventListener("click", () => {
+  window.location.reload();
+});
 
 document.addEventListener("DOMContentLoaded", autorun);
