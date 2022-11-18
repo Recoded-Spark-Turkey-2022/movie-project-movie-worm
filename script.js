@@ -83,6 +83,8 @@ const renderMovie = (movie) => {
 
 
 // Getting movie genres 
+let isGenreSelected = false
+
 fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`)
 .then(resp => resp.json())
 .then(json => {
@@ -102,12 +104,11 @@ fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=
   }
 
   dropDownMovies.addEventListener('change', (e) => {
-    console.log(e.target.value)
+    isGenreSelected = true
 
     fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${e.target.value}&with_watch_monetization_types=flatrate`)
     .then(resp => resp.json())
     .then(json => {
-      console.log(json.results)
 
       CONTAINER.innerHTML =''
       renderMovies(json.results)
@@ -125,10 +126,89 @@ homeBtn.addEventListener('click', () => {
   window.location.reload()
 })
 
+// Filter > relaese year slider function
+let slider1 = document.getElementById('yearRange')
+let output1 = document.getElementById('demo1')
+  output1.innerHTML = slider1.value
+
+  slider1.oninput = function(){
+    output1.innerHTML = this.value
+  }
+
+// Filter > rating slider function
+let slider2 = document.getElementById('ratingRange')
+let output2 = document.getElementById('demo2')
+  output2.innerHTML = slider2.value
+
+  slider2.oninput = function(){
+    output2.innerHTML = this.value
+  }
+
+// Filter Button function
+const filterBtn = document.getElementById('filterBtn')
+
+let selectedGenreId = ''
+
+filterBtn.addEventListener('click', () => {
+  const filterDiv = document.getElementById('filterDiv')
+
+  if(filterDiv.style.display == 'block'){
+    filterDiv.style.display = 'none'
+  }else{
+    filterDiv.style.display = 'block'
+
+    if(isGenreSelected == false){
+    document.getElementById('genre-filter').style.display = 'block'  
+
+    //Also fetch genres to show in filter box
+    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`)
+    .then(resp => resp.json())
+    .then(json => {
+      const genreListFilter = document.getElementById('genre-filter')
+      const genresListJson = json.genres
+
+    
+      for(let i = 0; i < genresListJson.length; i++){
+    
+        const option = document.createElement('option')
+        option.value = genresListJson[i].id
+        option.textContent = genresListJson[i].name
+    
+        genreListFilter.appendChild(option)
+      }
+    
+      genreListFilter.addEventListener('change', (e) => {
+        selectedGenreId = e.target.value
+      })
+    })
+    }else{
+    document.getElementById('genre-filter').style.display = 'none'  
+    }
+
+   
+  }
+})
+
+// Find movies button function
+const findMoviesBtn = document.getElementById('giveMeMoviesBtn')
+  findMoviesBtn.addEventListener('click', () => {
+    const selectedYear = slider1.value
+    const selectedRate = slider2.value
 
 
+// If we want to see the movies AFTER a certain relase year we can use this fetch
+//https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${selectedYear}&vote_average.gte=${selectedRate}&with_genres=${selectedGenreId}&with_watch_monetization_types=flatrate
 
 
+//this is filtering only the selecter year's movies
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=${selectedYear}&vote_average.gte=${selectedRate}&with_genres=${selectedGenreId}&with_watch_monetization_types=flatrate`)
+    .then(resp => resp.json())
+    .then(json => {
 
+      CONTAINER.innerHTML =''
+      renderMovies(json.results)
+    })
+
+  })
 
 document.addEventListener("DOMContentLoaded", autorun);

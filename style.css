@@ -9,3 +9,11 @@
 #actors {
     margin: 24px 16px 0 0;
 }
+
+#filterDiv {
+    display: none;
+}
+
+#genre-filter{
+    display: block;
+}
