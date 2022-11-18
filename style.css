@@ -76,7 +76,12 @@ main{
 #actors {
     margin: 24px 16px 0 0;
 }
-
+.line-clamp-4{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+}
 
 body{
     background-color: rgb(12, 5, 17);
