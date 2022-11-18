@@ -67,12 +67,6 @@ const fetchCompany = async () => {
   return res.json();
 };
 
-/*const fetchPopular = async () => {
-  const url = constructUrl(`movie/popular`);
-  const res = await fetch(url);
-  console.log(res.json()) ;
-};*/
-
 
 // Don't touch this function please. This function is to fetch one movie.
 const fetchMovie = async (movieId) => {
@@ -144,18 +138,6 @@ function coloring(vote) {
       return "red"
   }
 }
-
-  document.querySelector('#dropdown-filter').addEventListener('change', e => {
-    if(e.target.value == 'top-rated'){
-      fetchingTopRated()
-    }else if(e.target.value == "popular"){
-      fetchingPopular()
-    }else if(e.target.value == 'release-date'){
-
-    }
-  })
-
-
 
 
 // You'll need to play with this function in order to add features and enhance the style.
@@ -247,21 +229,6 @@ const renderMovie = (movie, credits, trailer, similarMovies) => {
 
 
 
-function fetchingPopular(){
-
-
-  fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`)
-  .then(response => response.json())
-  .then(json => {
-    console.log(json.results)
-
-    CONTAINER.innerHTML='';
-    renderMovies(json.results);
-  })
-}
-
-CONTAINER.innerHTML= ""
-fetchingPopular()
 
 
 //Rendering-----------------------------------------------------------------------------
@@ -331,7 +298,7 @@ const showSingleActor = (credit) => {
 }
 
 
-//Fetching for Filter--------------------------------------
+//Fetching for Sorting--------------------------------------
 
 
 function fetchingTopRated(){
@@ -348,13 +315,40 @@ function fetchingTopRated(){
     }
 
 
-     /*function fetchingReleaseDate(){
+function fetchingPopular(){
 
-      fetch(`https://api.themoviedb.org/3/movie/{movie_id}/release_dates?api_key=c63e3e406a6a0477c30d877a6acf90b1`)
-      .then(response => response.json())
-      .then(data => console.log(data.results));
-      }
-      console.log(fetchingReleaseDate());*/
-    
+
+  fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`)
+  .then(response => response.json())
+  .then(json => {
+    CONTAINER.innerHTML='';
+    renderMovies(json.results);
+  })
+}
+
+function fetchingReleaseDate(){
+  fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=primary_release_date.asc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`)
+  .then(response => response.json())
+  .then(json => {
+
+    CONTAINER.innerHTML='';
+    renderMovies(json.results);
+  })
+}
+
+
+
+
+document.querySelector('#dropdown-filter').addEventListener('change', e => {
+  if(e.target.value == 'top-rated'){
+    fetchingTopRated()
+  }else if(e.target.value == "popular"){
+    fetchingPopular()
+  }else if(e.target.value == 'release-date'){
+    fetchingReleaseDate()
+  }
+})
+
+
 
 document.addEventListener("DOMContentLoaded", autorun);
