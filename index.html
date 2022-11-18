@@ -6,59 +6,83 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
     <title>Movie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Open+Sans:wght@300;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&family=Open+Sans:wght@300;600&family=Work+Sans:wght@800&display=swap" rel="stylesheet">
 </head>
 
 <body>
-              <!-- Navbar -->
+         <!-- Navbar -->
 
               
-              <nav class="flex flex-col lg:flex-row lg:justify-around lg:items-stretch bg-slate-100 h-4/12 lg:h-2/12 gap-2">
-                <!-- Left part of Navbar -->
-<div class="flex flex-col justify-center items-center lg:flex-row lg:justify-around lg:items-center mt-1 lg:w-4/12 w-full">
+         <nav class="flex flex-col lg:flex-row lg:justify-around lg:items-stretch bg-slate-100 h-4/12 lg:h-2/12 gap-2">
+            <!-- Left part of Navbar -->
+<div class="flex flex-col justify-center items-center lg:flex-row lg:justify-around lg:items-center mt-1  w-full">
 
-        <!-- Our logo -->
-    <div> 
-        <img class= 'lg:w-16' src="/Screenshot at Nov 12 11-38-55.png" alt="logo">
-    </div>
-        <!-- Search box -->
-    <div class="flex flex-col items-center justify-center w-full" > 
-        <input type="text" placeholder="Search.." name="searchField" class="border w-8/12 border-slate-400 rounded-lg"
-        id="search" action="" autocomplete="off">
+    <!-- Our logo -->
+<div> 
+    <img class= 'lg:w-16' src="images/logo2.png" alt="logo">
+</div>
+    <!-- Search box -->
+    <div class="search-input w-2/5">
+<div class="flex items-center justify-center w-full" > 
+    <input type="text" placeholder="Search.." name="searchField" class="border w-8/12 border-slate-400 rounded-lg"
+    id="search" action="" autocomplete="off">
 
-    <ul  id="resultsList" class="border w-8/12 border-slate-400 rounded-lg bg-red-20"> <ul>  </div>
+<ul  id="resultsList" class="border w-8/12 border-slate-400 rounded-lg bg-red-20"> <ul>  </div>
 <div class="autoWrapper" id="autoWrapper">
-    </div>
+</div>
+</div>
+            <!-- Right part of Navbar  -->
+<div class="flex flex-row justify-center gap-1 lg:w-6/12 w-full">
 
-                <!-- Right part of Navbar  -->
-    <div class="flex flex-row justify-center gap-1 lg:w-6/12 w-full">
-
-        <!-- Dropdown menu -->
-        <div class="w-3/12">
-            <select name="drop-down" id="drop-down" class="border border-slate-400 p-1 w-full rounded-lg text-center h-full">
-                <option disabled selected>Movies</option>
-                
-            </select>
-        </div>
-        <!-- Other buttons -->
-        <div class="w-3/12 sm:h-full h-14">
-            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full" id="homeBtn">Home</button>
-        </div>
-        <div class="w-3/12 sm:h-full h-14">
-            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full shrink">Actor List</button>
-        </div>
-        <div class="w-3/12 sm:h-full h-14">
-            <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full">About Us</button>
-        </div>
+    <!-- Dropdown menu -->
+    <div class="w-3/12">
+        <select name="drop-down" id="drop-down" class="border border-slate-400 p-1 w-full rounded-lg text-center h-full">
+            <option disabled selected>Movies</option>
+            
+        </select>
     </div>
+    <!-- Other buttons -->
+    <div class="w-3/12 sm:h-full h-14">
+        <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full" id="homeBtn">Home</button>
+    </div>
+    <div class="w-3/12 sm:h-full h-14">
+        <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full shrink">Actor List</button>
+    </div>
+    <div class="w-3/12 sm:h-full h-14">
+        <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full">About Us</button>
+    </div>
+</div>
 </div>
 
 </nav>
 
-
-
-<main class="h-8/12 flex flex-col items-center justify-center mt-2">
+       <section class="main flex flex-wrap flex-col items-center justify-center  " id="main">
+    
+        <br> 
+        
+        <div class="filter-button">
+            <label for="dropdown">Sort By</label>
+            <select name="dropdown" id="dropdown-filter">
+                <option value="popular" id="popular">Popular</option>
+                <option value="release-date" id="release-date">Release Date</option>
+                <option value="top-rated" id="top-rated">Top Rated</option>
+            </select>
+        </div>
+    </section>
+    <main class="filter-menu h-8/12 flex flex-col items-center justify-center mt-2 w-2/5">
     
         <!-- Filter button -->
         <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full" id="filterBtn">Filter Movies</button>
@@ -75,8 +99,8 @@
             </div>
             <!-- Rating -->
             <div class="flex flex-col justify-center items-center">
-                <input type="range" min="1" max="5" value="0" class="slider" id="ratingRange">
-                <p>Rating: <span id="demo2"></span>/5</p>
+                <input type="range" min="1" max="10" value="0" class="slider" id="ratingRange">
+                <p>Rating: <span id="demo2"></span>/10</p>
             </div>
             <!-- Genres -->
             <div>
@@ -93,79 +117,85 @@
         </div>
     </div>
 
-    <!-- Movies container -->
-    <div class="container">
-    </div>
 </main>
 
-
-<footer class="w-full flex flex-col items-center gap-2 bg-slate-100">
-    <!-- Coperight part -->
-    <div class="w-full flex flex-col items-center justify-center border-b-2 border-slate-400 text-center p-1">
-        <p>
-            This website is protected by International copyright laws. Reproduction and usage without written permission is prohibited.
-        </p>
-        <p> <strong>© All Rights Reserved - 2022</strong> 
-
-        </p>
-
+    <div class="container flex flex-wrap items-center justify-center" >
+       
     </div>
-    <!-- Credit part -->
-    <div class="flex flex-col w-5/6 items-center justify-center  md:flex-row md:w-full md:items-start
-     md:justify-center gap-2">
-            <!-- Brief info about project -->
-        <div class="w-full md:w-4/6 flex flex-col items-center justify-start text-center gap-1 p-1">
-            <p class="font-bold text-xl">
-                About the project
+    <footer class="w-full flex flex-col items-center gap-2 bg-slate-100">
+        <!-- Coperight part -->
+        <div class="w-full flex flex-col items-center justify-center border-b-2 border-slate-400 text-center p-1">
+            <p>
+                This website is protected by International copyright laws. Reproduction and usage without written permission is prohibited.
             </p>
-            <p class="p-1">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt ut dolores deleniti ratione modi qui id iste accusantium et delectus?
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error, natus deserunt qui earum nihil architecto eveniet mollitia aspernatur numquam velit.
+            <p> <strong>© All Rights Reserved - 2022</strong> 
+    
             </p>
+    
         </div>
-
-            <!-- Github accounts of developers -->
-        <div class="flex flex-col items-center gap-1 justify-center w-3/6 lg:w-2/6 pb-2">
-            <p class="font-bold text-xl">
-                Contributors
-            </p>
-            <!-- Dilara -->
-            <div class="w-full md:w-3/6">
-                <a href="https://github.com/dilaracetinberk" target="_blank" class="flex flex-row items-center justify-start gap-2">
-                    <img class="h-6" src="/GitHub-Mark-120px-plus.png" alt="Github-logo">
-                    <p>dilaracetinberk</p>
-                </a>
+        <!-- Credit part -->
+        <div class="flex flex-col w-5/6 items-center justify-center  md:flex-row md:w-full md:items-start
+         md:justify-center gap-2">
+                <!-- Brief info about project -->
+            <div class="w-full md:w-4/6 flex flex-col items-center justify-start text-center gap-1 p-1">
+                <p class="font-bold text-xl">
+                    About the project
+                </p>
+                <p class="p-1">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt ut dolores deleniti ratione modi qui id iste accusantium et delectus?
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error, natus deserunt qui earum nihil architecto eveniet mollitia aspernatur numquam velit.
+                </p>
             </div>
-
-            <!-- Kuday -->
-            <div class="w-full md:w-3/6">
-                <a href="https://github.com/kogunlu" target="_blank" class="flex flex-row items-center justify-start gap-2">
-                    <img class="h-6" src="/GitHub-Mark-120px-plus.png" alt="Github-logo">
-                    <p>kogunlu</p>
-                </a>
-            </div>
-
-            <!-- Hadi -->
-            <div class="w-full md:w-3/6">
-                <a href="https://github.com/Hadizios" target="_blank" class="flex flex-row items-center justify-start gap-2">
-                    <img class="h-6" src="/GitHub-Mark-120px-plus.png" alt="Github-logo">
-                    <p>Hadizios</p>
-                </a>
-            </div>
-
-            <!-- Abdullah -->
-            <div class="w-full md:w-3/6">
-                <a href="https://github.com/Abdullah-Naifeh" target="_blank" class="flex flex-row items-center justify-start gap-2">
-                    <img class="h-6" src="/GitHub-Mark-120px-plus.png" alt="Github-logo">
-                    <p>Abdullah-Naifeh</p>
-                </a>
+    
+                <!-- Github accounts of developers -->
+            <div class="flex flex-col items-center gap-1 justify-center w-3/6 lg:w-2/6 pb-2">
+                <p class="font-bold text-xl">
+                    Contributors
+                </p>
+                <!-- Dilara -->
+                <div class="w-full md:w-3/6">
+                    <a href="https://github.com/dilaracetinberk" target="_blank" class="flex flex-row items-center justify-start gap-2">
+                        <img class="h-6" src="./images/GitHub-Mark-120px-plus.png" alt="Github-logo">
+                        <p>dilaracetinberk</p>
+                    </a>
+                </div>
+    
+                <!-- Kuday -->
+                <div class="w-full md:w-3/6">
+                    <a href="https://github.com/kogunlu" target="_blank" class="flex flex-row items-center justify-start gap-2">
+                        <img class="h-6" src="./images/GitHub-Mark-120px-plus.png" alt="Github-logo">
+                        <p>kogunlu</p>
+                    </a>
+                </div>
+    
+                <!-- Hadi -->
+                <div class="w-full md:w-3/6">
+                    <a href="https://github.com/Hadizios" target="_blank" class="flex flex-row items-center justify-start gap-2">
+                        <img class="h-6" src="./images/GitHub-Mark-120px-plus.png" alt="Github-logo">
+                        <p>Hadizios</p>
+                    </a>
+                </div>
+    
+                <!-- Abdullah -->
+                <div class="w-full md:w-3/6">
+                    <a href="https://github.com/Abdullah-Naifeh" target="_blank" class="flex flex-row items-center justify-start gap-2">
+                        <img class="h-6" src="./images/GitHub-Mark-120px-plus.png" alt="Github-logo">
+                        <p>Abdullah-Naifeh</p>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
-
-
-<script type="text/javascript" src="script.js"></script>
+    </footer>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="slick/slick.min.js"></script>
+<script type="text/javascript">
+   
+  </script>
+    <script type="text/javascript" src="script.js">
+       
+    </script>
 </body>
 
 </html>
