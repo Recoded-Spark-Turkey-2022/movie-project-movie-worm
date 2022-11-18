@@ -263,7 +263,7 @@ const renderMovie = (movie, credits, trailer, similarMovies) => {
             <div id = 'similar-movies' class='row '>
             </div>
             </div>`;
-    document.querySelector('body').setAttribute('class', 'bg-gradient-to-r from-indigo-500')
+    
     renderingActors(credits);
     renderingSimilarMovies(similarMovies);
     renderingCompanies(movie);
