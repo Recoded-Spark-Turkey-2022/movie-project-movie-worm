@@ -185,7 +185,7 @@ const renderMovies = (movies) => {
 const homepageContent = function (){
  const main = document.getElementById('main');
   imgDiv.className += "imgDiv pt-6 w-full flex flex-wrap flex-col items-center justify-center";
-  imgDiv.innerHTML = `<img  class="rounded-md w-3/4  "  src="./images/LS-Video-PremiumChannels_TMC_Hero-Mobile.jpg" alt="">`;
+  imgDiv.innerHTML = `<img  class="rounded-md w-3/4  "  src="./LS-Video-PremiumChannels_TMC_Hero-Mobile.jpg" alt="">`;
  //const smallmoviecard = document.createElement('div');
  //smallmoviecard.className += 'small-movie col';
  
