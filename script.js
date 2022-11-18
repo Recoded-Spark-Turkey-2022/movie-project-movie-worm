@@ -6,7 +6,6 @@ const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
 
-// This my api key
 const apiKey = "87b7a72219e91c516dfe252a080dfc25";
 
 // Don't touch this function please
@@ -49,6 +48,8 @@ function searchMovie(searchValue) {
 function renderResult(searchResults) {
   const tag = document.getElementById("resultsList");
   const searchfield = document.getElementById("search");
+  const buttonWrap = document.createElement("button");
+
   if (searchfield.value.length > 0) {
     tag.innerHTML = "";
     const list = searchResults.slice(0, 3).map((results) => {
@@ -64,13 +65,14 @@ function renderResult(searchResults) {
   } else {
     tag.innerHTML = "";
   }
-  createAuto(renderResult);
-
+  renderResult(searchResults);
   let elementsArray = document.querySelectorAll(".movie-search");
 
   elementsArray.forEach(function (elem) {
     elem.addEventListener("click", function () {
       movieDetails({ id: parseInt(elem.id) });
+
+      buttonWrap.innerHTML = elem;
     });
   });
 }
@@ -83,17 +85,26 @@ window.onload = async () => {
   };
 };
 
-function createAuto(list) {
-  const ListEl = document.createElement("resultsList");
-  listEl = "movie-search";
-}
+// function createAuto(list) {
+//   const listEl = document.createElement("ul");
+//   listEl.resultsList = ".movie-search";
+
+//   document.querySelector("#autoWrapper").appendChild(listEl);
+
+//   list.forEach((renderResult) => {
+//     const listitem = document.createElement("li");
+//     const resultsButton = document.createElement("button");
+//     resultsButton.innerHTML = renderResult;
+//   });
+//   document.querySelector("#autoWrapper").appendchild(listEl);
+// }
 
 // Don't touch this function please. This function is to fetch one movie.
-const fetchMovie = async (movieId) => {
+async function fetchMovie(movieId) {
   const url = constructUrl(`movie/${movieId}`);
   const res = await fetch(url);
   return res.json();
-};
+}
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
@@ -136,130 +147,123 @@ const renderMovie = (movie) => {
 };
 
 // Home Button function
-const homeBtn = document.getElementById('homeBtn')
-homeBtn.addEventListener('click', () => {
-  window.location.reload()
-})
-
+const homeBtn = document.getElementById("homeBtn");
+homeBtn.addEventListener("click", () => {
+  window.location.reload();
+});
 
 // Filter > relaese year slider function
-let slider1 = document.getElementById('yearRange')
-let output1 = document.getElementById('demo1')
-  output1.innerHTML = slider1.value
+let slider1 = document.getElementById("yearRange");
+let output1 = document.getElementById("demo1");
+output1.innerHTML = slider1.value;
 
-  slider1.oninput = function(){
-    output1.innerHTML = this.value
-  }
+slider1.oninput = function () {
+  output1.innerHTML = this.value;
+};
 
 // Filter > rating slider function
-let slider2 = document.getElementById('ratingRange')
-let output2 = document.getElementById('demo2')
-  output2.innerHTML = slider2.value
+let slider2 = document.getElementById("ratingRange");
+let output2 = document.getElementById("demo2");
+output2.innerHTML = slider2.value;
 
-  slider2.oninput = function(){
-    output2.innerHTML = this.value
-  }
+slider2.oninput = function () {
+  output2.innerHTML = this.value;
+};
 
 // Filter Button function
-const filterBtn = document.getElementById('filterBtn')
+const filterBtn = document.getElementById("filterBtn");
 
-let selectedGenreId = ''
+let selectedGenreId = "";
 
-filterBtn.addEventListener('click', () => {
-  const filterDiv = document.getElementById('filterDiv')
+filterBtn.addEventListener("click", () => {
+  const filterDiv = document.getElementById("filterDiv");
 
-  if(filterDiv.style.display == 'block'){
-    filterDiv.style.display = 'none'
-  }else{
-    filterDiv.style.display = 'block'
+  if (filterDiv.style.display == "block") {
+    filterDiv.style.display = "none";
+  } else {
+    filterDiv.style.display = "block";
 
-    if(isGenreSelected == false){
-    document.getElementById('genre-filter').style.display = 'block'  
+    if (isGenreSelected == false) {
+      document.getElementById("genre-filter").style.display = "block";
 
-    //Also fetch genres to show in filter box
-    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`)
-    .then(resp => resp.json())
-    .then(json => {
-      const genreListFilter = document.getElementById('genre-filter')
-      const genresListJson = json.genres
+      //Also fetch genres to show in filter box
+      fetch(
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
+      )
+        .then((resp) => resp.json())
+        .then((json) => {
+          const genreListFilter = document.getElementById("genre-filter");
+          const genresListJson = json.genres;
 
-    
-      for(let i = 0; i < genresListJson.length; i++){
-    
-        const option = document.createElement('option')
-        option.value = genresListJson[i].id
-        option.textContent = genresListJson[i].name
-    
-        genreListFilter.appendChild(option)
-      }
-    
-      genreListFilter.addEventListener('change', (e) => {
-        selectedGenreId = e.target.value
-      })
-    })
-    }else{
-    document.getElementById('genre-filter').style.display = 'none'  
+          for (let i = 0; i < genresListJson.length; i++) {
+            const option = document.createElement("option");
+            option.value = genresListJson[i].id;
+            option.textContent = genresListJson[i].name;
+
+            genreListFilter.appendChild(option);
+          }
+
+          genreListFilter.addEventListener("change", (e) => {
+            selectedGenreId = e.target.value;
+          });
+        });
+    } else {
+      document.getElementById("genre-filter").style.display = "none";
     }
-
-   
   }
-})
+});
 
 // Find movies button function
-const findMoviesBtn = document.getElementById('giveMeMoviesBtn')
-  findMoviesBtn.addEventListener('click', () => {
-    const selectedYear = slider1.value
-    const selectedRate = slider2.value
+const findMoviesBtn = document.getElementById("giveMeMoviesBtn");
+findMoviesBtn.addEventListener("click", () => {
+  const selectedYear = slider1.value;
+  const selectedRate = slider2.value;
 
+  // If we want to see the movies AFTER a certain relase year we can use this fetch
+  //https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${selectedYear}&vote_average.gte=${selectedRate}&with_genres=${selectedGenreId}&with_watch_monetization_types=flatrate
 
-// If we want to see the movies AFTER a certain relase year we can use this fetch
-//https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${selectedYear}&vote_average.gte=${selectedRate}&with_genres=${selectedGenreId}&with_watch_monetization_types=flatrate
+  //this is filtering only the selecter year's movies
+  fetch(
+    `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=${selectedYear}&vote_average.gte=${selectedRate}&with_genres=${selectedGenreId}&with_watch_monetization_types=flatrate`
+  )
+    .then((resp) => resp.json())
+    .then((json) => {
+      CONTAINER.innerHTML = "";
+      renderMovies(json.results);
+    });
+});
 
+// Getting movie genres
+let isGenreSelected = false;
 
-//this is filtering only the selecter year's movies
-    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=${selectedYear}&vote_average.gte=${selectedRate}&with_genres=${selectedGenreId}&with_watch_monetization_types=flatrate`)
-    .then(resp => resp.json())
-    .then(json => {
+fetch(
+  `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
+)
+  .then((resp) => resp.json())
+  .then((json) => {
+    const dropDownMovies = document.getElementById("drop-down");
+    const genresListJson = json.genres;
 
-      CONTAINER.innerHTML =''
-      renderMovies(json.results)
-    })
+    for (let i = 0; i < genresListJson.length; i++) {
+      const option = document.createElement("option");
+      option.value = genresListJson[i].id;
+      option.textContent = genresListJson[i].name;
 
-  })
+      dropDownMovies.appendChild(option);
+    }
 
+    dropDownMovies.addEventListener("change", (e) => {
+      isGenreSelected = true;
 
-// Getting movie genres 
-let isGenreSelected = false
-
-fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`)
-.then(resp => resp.json())
-.then(json => {
-
-  const dropDownMovies = document.getElementById('drop-down')
-  const genresListJson = json.genres
-  
-
-  for(let i = 0; i < genresListJson.length; i++){
-
-    const option = document.createElement('option')
-    option.value = genresListJson[i].id
-    option.textContent = genresListJson[i].name
-
-
-    dropDownMovies.appendChild(option)
-  }
-
-  dropDownMovies.addEventListener('change', (e) => {
-    isGenreSelected = true
-
-    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${e.target.value}&with_watch_monetization_types=flatrate`)
-    .then(resp => resp.json())
-    .then(json => {
-
-      CONTAINER.innerHTML =''
-      renderMovies(json.results)
-    })
-    
-  })
+      fetch(
+        `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${e.target.value}&with_watch_monetization_types=flatrate`
+      )
+        .then((resp) => resp.json())
+        .then((json) => {
+          CONTAINER.innerHTML = "";
+          renderMovies(json.results);
+        });
+    });
+  });
 
 document.addEventListener("DOMContentLoaded", autorun);
