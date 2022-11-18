@@ -13,6 +13,7 @@ const imgDiv = document.createElement('div');
 const autorun = async () => {
   const movies = await fetchMovies();
   renderMovies(movies.results);
+
 };
 
 // Don't touch this function please
@@ -28,7 +29,9 @@ const movieDetails = async (movie) => {
   const credits = await fetchActors(movie.id);
   const trailer = await fetchTrailer(movie.id);
   const similarMovie = await fetchSimilarMovies(movie.id);
+  
   renderMovie(movieRes, credits, trailer.results[0].key, similarMovie);
+  
    
 };
 
@@ -62,6 +65,26 @@ const fetchCompany = async () => {
   return res.json();
 };
 
+/*const fetchPopular = async () => {
+  const url = constructUrl(`movie/popular`);
+  const res = await fetch(url);
+  console.log(res.json()) ;
+};*/
+
+
+
+
+function fetchingPopular(){
+
+  fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`)
+  .then(response => response.json())
+  .then(data => { 
+   data.results
+  }) }
+  console.log(fetchingPopular());
+  
+
+
 
 
 // Don't touch this function please. This function is to fetch one movie.
@@ -92,33 +115,34 @@ const renderMovies = (movies) => {
         <p>${movie.overview} </p>
         </div>`;
         
-        
+
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
       imgDiv.remove(imgDiv);
       
     });
     CONTAINER.appendChild(movieDiv);
-    
+   
+
   });
   
+  
+  
   homepageContent();
-  $('imgDiv').slick({
-    dots: true,
-    infinite: true,
-    speed: 500,
-    fade: true,
-    cssEase: 'linear'
-  });
+
 };
 //Homepage ImageDiv-----------------------------------------
 const homepageContent = function (){
-const main = document.getElementById('main');
-imgDiv.className += "imgDiv pt-6 w-full flex flex-wrap flex-col items-center justify-center";
-imgDiv.innerHTML = '<img  class="rounded-md w-3/4  " src="./images/LS-Video-PremiumChannels_TMC_Hero-Mobile.jpg" alt=""> ';
+ const main = document.getElementById('main');
+  imgDiv.className += "imgDiv pt-6 w-full flex flex-wrap flex-col items-center justify-center";
+  imgDiv.innerHTML = `<img  class="rounded-md w-3/4  "  src="./images/LS-Video-PremiumChannels_TMC_Hero-Mobile.jpg" alt="">`;
+ const smallmoviecard = document.createElement('div');
+ smallmoviecard.className += 'small-movie col';
+ 
 main.appendChild(imgDiv);
-}
 
+}
+//<h1 class='css text-7xl font-extrabold tracking-widest'>MOVIE WORM</h1> <br> <p class='csss text-3xl'>Do not Miss the Newest!</p>
 //Coloring Vote-----------------------------------------
 function coloring(vote) {
   if(vote>= 8){
@@ -130,6 +154,16 @@ function coloring(vote) {
   else{
       return "red"
   }
+}
+function filterPopular(){
+const popularOption = document.getElementById('popular');
+popularOption.addEventListener('click', () =>{
+  const popular = fetchingPopular();
+  
+  CONTAINER.innerHTML='';
+  renderMovies(popular);
+
+})
 }
 
 // You'll need to play with this function in order to add features and enhance the style.
@@ -231,9 +265,9 @@ const renderingActors = (credits) => {
     const actorList = document.createElement('li');
     actorList.setAttribute('class', 'actor card ');
     
-    actorList.innerHTML = `<img src="${BACKDROP_BASE_URL + credit.profile_path}" alt="${credit.name}">
+    actorList.innerHTML = `<img src="${BACKDROP_BASE_URL + credit.profile_path}">
      <div class = "card-body info-actor">
-          <p class = ''>${credit.name}</p>
+          <p >${credit.name}</p>
      </div>`;
     actorList.addEventListener("click", () => {
      //showSingleActor(credit);-------------------------Hadi is working on it
@@ -282,17 +316,13 @@ const renderingCompanies = (movie) => {
 }
 
 
+const showSingleActor = (credit) => {
 
+}
 
 
 //Fetching for Filter--------------------------------------
-function fetchingPopular(){
 
-  fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
-  .then(response => response.json())
-  .then(data => console.log(data.results));
-  }
-  console.log(fetchingPopular());
 
 function fetchingTopRated(){
 
