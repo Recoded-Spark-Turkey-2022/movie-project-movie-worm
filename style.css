@@ -140,6 +140,13 @@ body{
     font-family: 'Cinzel', serif;
     
 }
+#filterDiv {
+    display: none;
+}
+
+#genre-filter{
+    display: block;
+}
 /*
 .logo1{
     top: 5em;
