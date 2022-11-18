@@ -261,5 +261,5 @@ fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=
     })
     
   })
-
+})
 document.addEventListener("DOMContentLoaded", autorun);
