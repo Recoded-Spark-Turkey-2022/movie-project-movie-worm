@@ -58,7 +58,42 @@
 
 
 
-<main class="h-8/12">
+<main class="h-8/12 flex flex-col items-center justify-center mt-2">
+    
+        <!-- Filter button -->
+        <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full" id="filterBtn">Filter Movies</button>
+
+         <!-- Filter section -->
+        <div class="w-full flex-col justify-center items-center" id="filterDiv">
+       
+                         <!-- All filtering options are here -->
+        <div class="flex flex-col items-center w-full gap-2">
+            <!-- Release year -->
+            <div class="flex flex-col justify-center items-center w-4/6">
+                <input type="range" min="1970" max="2022" value="0" class="slider w-full" id="yearRange">
+                <p>Release year: <span id="demo1"></span></p>
+            </div>
+            <!-- Rating -->
+            <div class="flex flex-col justify-center items-center">
+                <input type="range" min="1" max="5" value="0" class="slider" id="ratingRange">
+                <p>Rating: <span id="demo2"></span>/5</p>
+            </div>
+            <!-- Genres -->
+            <div>
+                <select name="drop-down" id="genre-filter" class="border border-slate-400 p-1 w-full rounded-lg text-center h-full">
+                    <option disabled selected>Choose a genre</option>
+
+                </select>
+            </div>
+            <!-- Button to show the results -->
+            <div>
+                <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full" id="giveMeMoviesBtn">Give me those movies!</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Movies container -->
     <div class="container">
     </div>
 </main>
