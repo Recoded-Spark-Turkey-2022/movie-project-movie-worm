@@ -1,77 +1,10 @@
 #movie-backdrop {
-    width: 100%;
+  width: 100%;
 }
  
 .container {
     padding-top: 32px;
-   
-    
 }
-/*
-main{
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    background-color: aliceblue;
-}
-#movie{
-    width: 20rem;
-    margin: 1rem;
-    width: 300px;
-    margin: 1rem;
-    border-radius: 3px;
-    box-shadow: 0.2px 4px 5px rgba(0,0,0,0.1);
-    background-color:rgb(21, 20, 34);
-    position:relative;
-    overflow: hidden;
-}
-#movie img{
-    width:100%;
-}
-
-.info{
-    text-align: center;
-    padding: 1em;
-}
-.info h3{
-    margin-top: 0;
-    color: rgb(254, 254, 254);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-}
-
-.info span{
-    background-color:rgb(56, 71, 86);
-    padding: 0.25rem 0.5rem;
-    border-radius: 3px;
-    font-weight: bold;
-}
-.info span.green{
-    color:lightgreen;
-}
-
-.info span.orange{
-    color:orange;
-}
-
-.info span.red{
-    color:red;
-}
-.small-info{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    background-color:rgba(243, 196, 79, 0.7);
-    padding: 1rem;
-    max-height: 100%;
-    transform:translateY(101%);
-    transition:transform 0.3s ease-in;
-    font-family: 'Montserrat', sans-serif;
-}
-#movie:hover .small-info{
-    transform:translateY(0)
-}*/
 
 #actors {
     margin: 24px 16px 0 0;
@@ -140,19 +73,16 @@ body{
     font-family: 'Cinzel', serif;
     
 }
-/*
-.logo1{
-    top: 5em;
-    left: 13.5em;
+
+
+   margin: 24px 16px 0 0;
 }
 
-.css h1{
-    position:absolute;
-    font-family: 'Montserrat', sans-serif;
-    top: 5em;
-    left: 13.5em;
+#filterDiv {
+    display: none;
 }
-.csss p{
-    left: 20px;
-    font-family: 'Montserrat', sans-serif;
-}*/
+
+#genre-filter{
+    display: block;
+}
+

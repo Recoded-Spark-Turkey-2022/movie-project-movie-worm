@@ -1,5 +1,6 @@
-'use strict';
-
+"use strict";
+const query = "";
+const searchMul = `https://api.themoviedb.org/3/search/multi`;
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
@@ -8,6 +9,9 @@ const API_KEY= 'c63e3e406a6a0477c30d877a6acf90b1';
 const main = document.getElementById('main');
 const imgDiv = document.createElement('div');
 
+
+// This my api key
+const apiKey = "87b7a72219e91c516dfe252a080dfc25";
 
 // Don't touch this function please
 const autorun = async () => {
@@ -23,7 +27,7 @@ const constructUrl = (path) => {
   )}`;
 };
 
-// You may need to add to this function, definitely don't delete it.
+// You may need to add to this function, definitely don't dele0te it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
   const credits = await fetchActors(movie.id);
@@ -41,6 +45,7 @@ const fetchMovies = async () => {
   const res = await fetch(url);
   return res.json();
 };
+
 
 const fetchActors = async (movieId) => {
   const url = constructUrl(`movie/${movieId}/credits`);
@@ -65,15 +70,6 @@ const fetchCompany = async () => {
   return res.json();
 };
 
-/*const fetchPopular = async () => {
-  const url = constructUrl(`movie/popular`);
-  const res = await fetch(url);
-  console.log(res.json()) ;
-};*/
-
-
-
-
 function fetchingPopular(){
 
   fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`)
@@ -85,6 +81,59 @@ function fetchingPopular(){
   
 
 
+
+// this function is to fetch multisearch,
+function searchMovie(searchValue) {
+  return fetch(`${searchMul}?api_key=${apiKey}&query=${searchValue}`)
+    .then((response) => response.json())
+    .then((jsonData) => {
+      const go = jsonData.results;
+      return go;
+    });
+}
+
+// this function is to render the fetch ,
+function renderResult(searchResults) {
+  const tag = document.getElementById("resultsList");
+  const searchfield = document.getElementById("search");
+  if (searchfield.value.length > 0) {
+    tag.innerHTML = "";
+    const list = searchResults.slice(0, 3).map((results) => {
+      if (results.title) {
+        tag.innerHTML +=
+          `<li class="movie-search" id="${results.id}">` +
+          results.title +
+          "</li>";
+      } else if (results.name) {
+        tag.innerHTML += `<li id="${results.name}">` + results.name + "</li>";
+      }
+    });
+  } else {
+    tag.innerHTML = "";
+  }
+  createAuto(renderResult);
+
+  let elementsArray = document.querySelectorAll(".movie-search");
+
+  elementsArray.forEach(function (elem) {
+    elem.addEventListener("click", function () {
+      movieDetails({ id: parseInt(elem.id) });
+    });
+  });
+}
+
+window.onload = async () => {
+  const searchfield = document.getElementById("search");
+  searchfield.onkeyup = async (event) => {
+    const searchResults = await searchMovie(searchfield.value);
+    renderResult(searchResults);
+  };
+};
+
+function createAuto(list) {
+  const ListEl = document.createElement("resultsList");
+  listEl = "movie-search";
+}
 
 
 // Don't touch this function please. This function is to fetch one movie.
@@ -254,6 +303,7 @@ const renderMovie = (movie, credits, trailer, similarMovies) => {
 };
 
 
+
 //Rendering-----------------------------------------------------------------------------
 
 const renderingActors = (credits) => {
@@ -340,6 +390,133 @@ function fetchingTopRated(){
       }
       console.log(fetchingReleaseDate());*/
     
-      
+
+// Home Button function
+const homeBtn = document.getElementById('homeBtn')
+homeBtn.addEventListener('click', () => {
+  window.location.reload()
+})
+
+
+// Filter > relaese year slider function
+let slider1 = document.getElementById('yearRange')
+let output1 = document.getElementById('demo1')
+  output1.innerHTML = slider1.value
+
+  slider1.oninput = function(){
+    output1.innerHTML = this.value
+  }
+
+// Filter > rating slider function
+let slider2 = document.getElementById('ratingRange')
+let output2 = document.getElementById('demo2')
+  output2.innerHTML = slider2.value
+
+  slider2.oninput = function(){
+    output2.innerHTML = this.value
+  }
+
+// Filter Button function
+const filterBtn = document.getElementById('filterBtn')
+
+let selectedGenreId = ''
+
+filterBtn.addEventListener('click', () => {
+  const filterDiv = document.getElementById('filterDiv')
+
+  if(filterDiv.style.display == 'block'){
+    filterDiv.style.display = 'none'
+  }else{
+    filterDiv.style.display = 'block'
+
+    if(isGenreSelected == false){
+    document.getElementById('genre-filter').style.display = 'block'  
+
+    //Also fetch genres to show in filter box
+    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`)
+    .then(resp => resp.json())
+    .then(json => {
+      const genreListFilter = document.getElementById('genre-filter')
+      const genresListJson = json.genres
+
+    
+      for(let i = 0; i < genresListJson.length; i++){
+    
+        const option = document.createElement('option')
+        option.value = genresListJson[i].id
+        option.textContent = genresListJson[i].name
+    
+        genreListFilter.appendChild(option)
+      }
+    
+      genreListFilter.addEventListener('change', (e) => {
+        selectedGenreId = e.target.value
+      })
+    })
+    }else{
+    document.getElementById('genre-filter').style.display = 'none'  
+    }
+
+   
+  }
+})
+
+// Find movies button function
+const findMoviesBtn = document.getElementById('giveMeMoviesBtn')
+  findMoviesBtn.addEventListener('click', () => {
+    const selectedYear = slider1.value
+    const selectedRate = slider2.value
+
+
+// If we want to see the movies AFTER a certain relase year we can use this fetch
+//https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${selectedYear}&vote_average.gte=${selectedRate}&with_genres=${selectedGenreId}&with_watch_monetization_types=flatrate
+
+
+//this is filtering only the selecter year's movies
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=${selectedYear}&vote_average.gte=${selectedRate}&with_genres=${selectedGenreId}&with_watch_monetization_types=flatrate`)
+    .then(resp => resp.json())
+    .then(json => {
+
+      CONTAINER.innerHTML =''
+      renderMovies(json.results)
+    })
+
+  })
+
+
+// Getting movie genres 
+let isGenreSelected = false
+
+fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`)
+.then(resp => resp.json())
+.then(json => {
+
+  const dropDownMovies = document.getElementById('drop-down')
+  const genresListJson = json.genres
+  
+
+  for(let i = 0; i < genresListJson.length; i++){
+
+    const option = document.createElement('option')
+    option.value = genresListJson[i].id
+    option.textContent = genresListJson[i].name
+
+
+    dropDownMovies.appendChild(option)
+  }
+
+  dropDownMovies.addEventListener('change', (e) => {
+    isGenreSelected = true
+
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${e.target.value}&with_watch_monetization_types=flatrate`)
+    .then(resp => resp.json())
+    .then(json => {
+
+      CONTAINER.innerHTML =''
+      renderMovies(json.results)
+    })
+    
+  })
+
 
 document.addEventListener("DOMContentLoaded", autorun);

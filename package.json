@@ -1,0 +1,23 @@
+{
+  "name": "movie-project-movie-worm",
+  "version": "1.0.0",
+  "description": "This is a movie database project, where it shows movies, their casts, ratings, trailers, related movies, genres, and so on.",
+  "main": "script.js",
+  "scripts": {
+    "build-css": "tailwindcss build src/style.css -0 style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Recoded-Spark-Turkey-2022/movie-project-movie-worm.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Recoded-Spark-Turkey-2022/movie-project-movie-worm/issues"
+  },
+  "homepage": "https://github.com/Recoded-Spark-Turkey-2022/movie-project-movie-worm#readme",
+  "dependencies": {
+    "tailwindcss": "^3.2.4"
+  }
+}
