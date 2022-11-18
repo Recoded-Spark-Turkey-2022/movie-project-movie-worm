@@ -267,6 +267,7 @@ const renderMovie = (movie, credits, trailer, similarMovies) => {
     renderingActors(credits);
     renderingSimilarMovies(similarMovies);
     renderingCompanies(movie);
+   
 
      
 };
@@ -279,7 +280,7 @@ const renderingActors = (credits) => {
   
     credits.cast.slice(0, 4).map((credit) => {
     const actorDiv = document.createElement('div');
-    actorDiv.setAttribute('class','actor col h-1/5');
+    actorDiv.setAttribute('class','actordiv col h-1/5');
     const actorList = document.createElement('li');
     actorList.setAttribute('class', 'actor card ');
     
@@ -287,8 +288,10 @@ const renderingActors = (credits) => {
      <div class = "card-body info-actor">
           <p >${credit.name}</p>
      </div>`;
-    actorList.addEventListener("click", () => {
-     //showSingleActor(credit);-------------------------Kuday is working on it
+     //------------------EventListener----------------------------------------------------
+     document.getElementsByClassName('actordiv');
+     actorDiv.addEventListener("click", () => {
+      fetchSingleActor(actorID);
     });
     actorDiv.appendChild(actorList);
 
@@ -333,10 +336,63 @@ const renderingCompanies = (movie) => {
   })
 }
 
-const showSingleActor = (credit) => {
 
+//we need person ID to use function below
+function fetchSingleActor(actorID){
+  fetch(`https://api.themoviedb.org/3/person/${actorID[i]}?api_key=${API_KEY}&language=en-US`)
+  .then(resp => resp.json())
+  .then(json => {
+    document.querySelector('.filter-button').style.display ='none'
+    document.querySelector('#filterBtn').style.display ='none'
+    document.querySelector('.imgDiv').style.display = 'none'
+// CONTAINER.innerHTML = ""
+CONTAINER.innerHTML = ` 
+<div class="row">
+
+<div class="col-md-12 ">
+<img class='bg-blend-multiply' id="movie-backdrop" src=${
+  PROFILE_BASE_URL + json.profile_path
+} height = 'auto'> <br>
+</div>
+  
+</div>
+<div class="col-md-8 ">
+    <h2 id="actor-name" class='text-5xl text-white'>${json.name}</h2>
+    
+    <p id="actor-birth" class='text-slate-50'> ${json.birthday}</p>
+    <p id="place-birth" class='text-slate-50'>${json.place_of_birth} Minutes</p>
+    <h3 class='text-slate-50 text-xl'>Overview:</h3>
+    <p id="biography" class='text-slate-50 w-3/5'><span class='line-clamp-4'>${json.biography}<span></p>
+    <button id="truncate" class="my-4 underline text-slate-400">Read more...</button>
+
+    
+    </div>
+    
+    <br>
+    <div class='mt-6 mb-6  w-2/3'>
+    
+    </div>
+
+    <div>
+    <h3 class='text-white text-2xl mt-6'>Other movies of the actor:</h3>
+
+    <div id = 'similar-movies' class='row '>
+    </div>
+</div>
+
+</div>`
+;
+
+
+})
+
+fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=primary_release_date.desc&include_adult=false&include_video=false&page=1&with_people=${json.id}&with_watch_monetization_types=flatrate`)
+.then(resp => resp.json())
+.then(data => {
+renderingSimilarMovies(data)
+
+})
 }
-
 
 //Fetching for Filter------------------------------------------------------------------------
 
