@@ -74,7 +74,6 @@ const fetchCompany = async () => {
 };*/
 
 /*function fetchingPopular(){
-
   fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`)
   .then(response => response.json())
   .then(data => { 
@@ -212,7 +211,6 @@ popularOption.addEventListener('click', () =>{
   
   CONTAINER.innerHTML='';
   renderMovies(popular);
-
 })
 }*/
 
@@ -256,10 +254,8 @@ const renderMovie = (movie, credits, trailer, similarMovies) => {
             <h3 class='text-white text-2xl'>Production Companies:</h3>
             <div class = ' h-1/5 row flex flex-wrap gap-3 ' id= "companies" width='3rem'></div>
             </div>
-
             <div>
             <h3 class='text-white text-2xl mt-6'>Similar Movies:</h3>
-
             <div id = 'similar-movies' class='row '>
             </div>
             </div>`;
@@ -283,16 +279,17 @@ const renderingActors = (credits) => {
     actorDiv.setAttribute('class','actordiv col h-1/5');
     const actorList = document.createElement('li');
     actorList.setAttribute('class', 'actor card ');
+
+
     
-    actorList.innerHTML = `<img src="${BACKDROP_BASE_URL + credit.profile_path}">
-     <div class = "card-body info-actor">
+    actorList.innerHTML = `<img class='actor-pic' value='${credit.id}' src="${BACKDROP_BASE_URL + credit.profile_path}">
+     <div class = "card-body info-actor" '>
           <p >${credit.name}</p>
      </div>`;
      //------------------EventListener----------------------------------------------------
-     document.getElementsByClassName('actordiv');
-     actorDiv.addEventListener("click", () => {
-      fetchSingleActor(actorID);
-    });
+    actorList.addEventListener('click', () => {
+      fetchSingleActor(`${credit.id}}`)
+    })
     actorDiv.appendChild(actorList);
 
     actorSection.appendChild(actorDiv);
@@ -339,16 +336,14 @@ const renderingCompanies = (movie) => {
 
 //we need person ID to use function below
 function fetchSingleActor(actorID){
-  fetch(`https://api.themoviedb.org/3/person/${actorID[i]}?api_key=${API_KEY}&language=en-US`)
+  fetch(`https://api.themoviedb.org/3/person/${actorID}?api_key=${apiKey}&language=en-US`)
   .then(resp => resp.json())
   .then(json => {
-    document.querySelector('.filter-button').style.display ='none'
-    document.querySelector('#filterBtn').style.display ='none'
-    document.querySelector('.imgDiv').style.display = 'none'
+    console.log(json)
+   
 // CONTAINER.innerHTML = ""
 CONTAINER.innerHTML = ` 
 <div class="row">
-
 <div class="col-md-12 ">
 <img class='bg-blend-multiply' id="movie-backdrop" src=${
   PROFILE_BASE_URL + json.profile_path
@@ -364,7 +359,6 @@ CONTAINER.innerHTML = `
     <h3 class='text-slate-50 text-xl'>Overview:</h3>
     <p id="biography" class='text-slate-50 w-3/5'><span class='line-clamp-4'>${json.biography}<span></p>
     <button id="truncate" class="my-4 underline text-slate-400">Read more...</button>
-
     
     </div>
     
@@ -372,19 +366,14 @@ CONTAINER.innerHTML = `
     <div class='mt-6 mb-6  w-2/3'>
     
     </div>
-
     <div>
     <h3 class='text-white text-2xl mt-6'>Other movies of the actor:</h3>
-
     <div id = 'similar-movies' class='row '>
     </div>
 </div>
-
 </div>`
 ;
 
-
-})
 
 fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=primary_release_date.desc&include_adult=false&include_video=false&page=1&with_people=${json.id}&with_watch_monetization_types=flatrate`)
 .then(resp => resp.json())
@@ -392,6 +381,8 @@ fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en
 renderingSimilarMovies(data)
 
 })
+})
+
 }
 
 //Fetching for Filter------------------------------------------------------------------------
@@ -406,7 +397,6 @@ function fetchingTopRated(){
      console.log(fetchingTopRated());
 
      /*function fetchingReleaseDate(){
-
       fetch(`https://api.themoviedb.org/3/movie/{movie_id}/release_dates?api_key=c63e3e406a6a0477c30d877a6acf90b1`)
       .then(response => response.json())
       .then(data => console.log(data.results));
@@ -543,46 +533,5 @@ const findMoviesBtn = document.getElementById('giveMeMoviesBtn')
   })
 
 
-<<<<<<< HEAD
-// Getting movie genres 
-let isGenreSelected = false
 
-fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`)
-.then(resp => resp.json())
-.then(json => {
-
-  const dropDownMovies = document.getElementById('drop-down')
-  const genresListJson = json.genres
-  
-
-  for(let i = 0; i < genresListJson.length; i++){
-
-    const option = document.createElement('option')
-    option.value = genresListJson[i].id
-    option.textContent = genresListJson[i].name
-
-
-    dropDownMovies.appendChild(option)
-  }
-
-  dropDownMovies.addEventListener('change', (e) => {
-    isGenreSelected = true
-
-    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${e.target.value}&with_watch_monetization_types=flatrate`)
-    .then(resp => resp.json())
-    .then(json => {
-
-      CONTAINER.innerHTML =''
-      renderMovies(json.results)
-    })
-    
-  })
-<<<<<<< HEAD
-})
-=======
-
-=======
->>>>>>> b86e7b8897c601a2e7f026d73cf70aa8cc817157
-
->>>>>>> 38bc4028dc835bc6572d1227fb6e794809d3657b
 document.addEventListener("DOMContentLoaded", autorun);
