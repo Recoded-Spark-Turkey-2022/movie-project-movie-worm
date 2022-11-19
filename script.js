@@ -140,7 +140,6 @@ window.location.href = "./index.html"
     CONTAINER.innerHTML = ''
 
     for (let i = 0; i < Allactors.length; i++) { 
-      // console.log(Allactors[i]);
       const cardContainer = document.createElement('div')
       const img = document.createElement('img')
       const actrorName = document.createElement('h5')
@@ -155,27 +154,12 @@ window.location.href = "./index.html"
       fetch(`https://api.themoviedb.org/3/person/${Allactors[i].id}/images?api_key=${apiKey}`)
       .then(res => res.json())
       .then(json => {
-        // console.log(json)
         img.setAttribute('src',BACKDROP_BASE_URL + json.profiles[0].file_path)
       })
       cardContainer.addEventListener('click' , () =>{
         window.location.href = "./index.html"
       })
     } 
-
-
-      // CONTAINER.innerHTML.appendChild(cardContainer)
-      // CONTAINER.innerHTML = `
-      // <div class="row">
-      //     <div class="col-md-4 ">
-            
-      //     </div>
-          
-      //     <div class="col-md-8">
-      //         <h2 id="movie-title">${oneActor.name}</h2>
-      //         <p id="movie-release-date"><b>Release Date:</b> ${oneActor.id}</p>
-      //     </div>
-      // </div>`;
   })
  })
 
