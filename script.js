@@ -454,7 +454,7 @@ fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=
 // Home Button function
 const homeBtn = document.getElementById('homeBtn')
 homeBtn.addEventListener('click', () => {
-window.location.href = "./index.html"
+  window.location.reload()
 })
 
 // Filter > relaese year slider function
@@ -479,42 +479,6 @@ let output2 = document.getElementById('demo2')
 const filterBtn = document.getElementById('filterBtn')
 
 let selectedGenreId = ''
-
-// Actors List Page
- const ActorListBtn = document.getElementById('Actor_list')
- const MainDiv = document.getElementById('main-content')
- 
- ActorListBtn.addEventListener('click' , () => {
-  fetch(`https://api.themoviedb.org/3/person/popular?api_key=${apiKey}&language=en-US&page=1`)
-  .then(res => res.json())
-  .then(json => {
-    const Allactors = json.results
-
-    CONTAINER.innerHTML = ''
-
-    for (let i = 0; i < Allactors.length; i++) { 
-      const cardContainer = document.createElement('div')
-      const img = document.createElement('img')
-      const actrorName = document.createElement('h5')
-      actrorName.innerText = Allactors[i].name
-
-    
-      cardContainer.appendChild(img)
-      cardContainer.appendChild(actrorName)
-      CONTAINER.appendChild(cardContainer)
-
-          //fetching actors photos for actor list page
-      fetch(`https://api.themoviedb.org/3/person/${Allactors[i].id}/images?api_key=${apiKey}`)
-      .then(res => res.json())
-      .then(json => {
-        img.setAttribute('src',BACKDROP_BASE_URL + json.profiles[0].file_path)
-      })
-      cardContainer.addEventListener('click' , () =>{
-        window.location.href = "./index.html"
-      })
-    } 
-  })
- })
 
 filterBtn.addEventListener('click', () => {
   const filterDiv = document.getElementById('filterDiv')
@@ -577,7 +541,6 @@ const findMoviesBtn = document.getElementById('giveMeMoviesBtn')
     })
 
   })
-
 
 
 
