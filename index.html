@@ -75,16 +75,17 @@
         <div class="filter-button">
             <label for="dropdown">Sort By</label>
             <select name="dropdown" id="dropdown-filter">
+                <option value="none" disabled selected>None</option>
                 <option value="popular" id="popular">Popular</option>
                 <option value="release-date" id="release-date">Release Date</option>
                 <option value="top-rated" id="top-rated">Top Rated</option>
             </select>
         </div>
     </section>
-    <main class="filter-menu h-8/12 flex flex-col items-center justify-center mt-2 w-2/5">
+    <section class="filter-menu h-full flex flex-col items-center justify-center mt-2 w-full">
     
         <!-- Filter button -->
-        <button class="border  border-slate-400 rounded-lg p-1 text-center w-2/5 bg-white h-full" id="filterBtn">Filter Movies</button>
+        <button class="border  border-slate-400 rounded-lg p-1 text-center w-1/5 bg-white h-full" id="filterBtn">Filter Movies</button>
 
          <!-- Filter section -->
         <div class="w-full flex-col justify-center items-center" id="filterDiv">
@@ -116,7 +117,7 @@
         </div>
     </div>
 
-</main>
+</section>
 
     <div class="container flex flex-wrap items-center justify-center" >
        

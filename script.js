@@ -67,19 +67,6 @@ const fetchCompany = async () => {
   return res.json();
 };
 
-/*const fetchPopular = async () => {
-  const url = constructUrl(`movie/popular`);
-  const res = await fetch(url);
-  console.log(res.json()) ;
-};*/
-
-/*function fetchingPopular(){
-  fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`)
-  .then(response => response.json())
-  .then(data => { 
-   data.results
-  }) }
-  fetchingPopular();*/
   
 // Don't touch this function please. This function is to fetch one movie.
 const fetchMovie = async (movieId) => {
@@ -531,6 +518,59 @@ const findMoviesBtn = document.getElementById('giveMeMoviesBtn')
     })
 
   })
+
+
+
+
+  //Fetching for Sorting--------------------------------------
+
+  function fetchingReleaseDate(){
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=primary_release_date.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`)
+    .then(response => response.json())
+    .then(json => {
+      console.log(json)
+      CONTAINER.innerHTML='';
+      renderMovies(json.results);
+    })
+  }
+
+
+
+  function fetchingPopular(){
+
+
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`)
+    .then(response => response.json())
+    .then(json => {
+      console.log(json)
+      CONTAINER.innerHTML='';
+      renderMovies(json.results);
+    })
+  }
+  
+
+  function sortByRate(){
+
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=vote_average.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      CONTAINER.innerHTML='';
+      renderMovies(data.results);
+    })
+    
+    }
+
+document.querySelector('#dropdown-filter').addEventListener('change', e => {
+  if(e.target.value == 'top-rated'){
+    sortByRate()
+  }else if(e.target.value == "popular"){
+    fetchingPopular()
+  }else if(e.target.value == 'release-date'){
+    fetchingReleaseDate()
+  }
+})
+
 
 
 
