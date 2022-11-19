@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 const query = "";
 const searchMul = `https://api.themoviedb.org/3/search/multi`;
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
@@ -7,11 +7,9 @@ const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
 const API_KEY= 'c63e3e406a6a0477c30d877a6acf90b1';
 const main = document.getElementById('main');
+const filtering = document.getElementsByClassName('filter-menu');
 const imgDiv = document.createElement('div');
-
-
-// This my api key
-const apiKey = "87b7a72219e91c516dfe252a080dfc25";
+const apiKey = '00c07d6d1de18f45f48a74210ba62760'
 
 // Don't touch this function please
 const autorun = async () => {
@@ -27,7 +25,7 @@ const constructUrl = (path) => {
   )}`;
 };
 
-// You may need to add to this function, definitely don't dele0te it.
+// You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
   const credits = await fetchActors(movie.id);
@@ -45,7 +43,6 @@ const fetchMovies = async () => {
   const res = await fetch(url);
   return res.json();
 };
-
 
 const fetchActors = async (movieId) => {
   const url = constructUrl(`movie/${movieId}/credits`);
@@ -70,16 +67,28 @@ const fetchCompany = async () => {
   return res.json();
 };
 
-function fetchingPopular(){
+/*const fetchPopular = async () => {
+  const url = constructUrl(`movie/popular`);
+  const res = await fetch(url);
+  console.log(res.json()) ;
+};*/
+
+/*function fetchingPopular(){
 
   fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`)
   .then(response => response.json())
   .then(data => { 
    data.results
   }) }
-  console.log(fetchingPopular());
+  fetchingPopular();*/
   
-
+// Don't touch this function please. This function is to fetch one movie.
+const fetchMovie = async (movieId) => {
+  const url = constructUrl(`movie/${movieId}`);
+  const res = await fetch(url);
+  return res.json()
+  
+};
 
 
 // this function is to fetch multisearch,
@@ -131,19 +140,9 @@ window.onload = async () => {
 };
 
 function createAuto(list) {
-  const ListEl = document.createElement("resultsList");
+  const listEl = document.createElement("resultsList");
   listEl = "movie-search";
 }
-
-
-// Don't touch this function please. This function is to fetch one movie.
-const fetchMovie = async (movieId) => {
-  const url = constructUrl(`movie/${movieId}`);
-  const res = await fetch(url);
-  return res.json()
-  
-};
-
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
@@ -168,6 +167,8 @@ const renderMovies = (movies) => {
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
       imgDiv.remove(imgDiv);
+      document.querySelector("main").style.display = "none";
+      document.querySelector('.filter-button').style.display = "none";
       
     });
     CONTAINER.appendChild(movieDiv);
@@ -184,9 +185,9 @@ const renderMovies = (movies) => {
 const homepageContent = function (){
  const main = document.getElementById('main');
   imgDiv.className += "imgDiv pt-6 w-full flex flex-wrap flex-col items-center justify-center";
-  imgDiv.innerHTML = `<img  class="rounded-md w-3/4  "  src="./images/LS-Video-PremiumChannels_TMC_Hero-Mobile.jpg" alt="">`;
- const smallmoviecard = document.createElement('div');
- smallmoviecard.className += 'small-movie col';
+  imgDiv.innerHTML = `<img  class="rounded-md w-3/4  "  src="./LS-Video-PremiumChannels_TMC_Hero-Mobile.jpg" alt="">`;
+ //const smallmoviecard = document.createElement('div');
+ //smallmoviecard.className += 'small-movie col';
  
 main.appendChild(imgDiv);
 
@@ -204,7 +205,7 @@ function coloring(vote) {
       return "red"
   }
 }
-function filterPopular(){
+/*function filterPopular(){
 const popularOption = document.getElementById('popular');
 popularOption.addEventListener('click', () =>{
   const popular = fetchingPopular();
@@ -213,7 +214,7 @@ popularOption.addEventListener('click', () =>{
   renderMovies(popular);
 
 })
-}
+}*/
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie, credits, trailer, similarMovies) => {
@@ -244,7 +245,7 @@ const renderMovie = (movie, credits, trailer, similarMovies) => {
             <div id='director'></div>
             <p id="original-language" class='text-orange-300'>Original Language: <span style="text-transform: uppercase;">${movie.original_language}</span></p>
             <h3 class='text-white text-2xl'>Actors:</h3>
-            <div id="actors" class="actors-slide row flex flex-wrap w-3/4" >
+            <div id="actors"  class="actors-slide row flex flex-wrap w-3/4" >
             </div>
             </div>
             
@@ -266,42 +267,10 @@ const renderMovie = (movie, credits, trailer, similarMovies) => {
     renderingActors(credits);
     renderingSimilarMovies(similarMovies);
     renderingCompanies(movie);
-    $('.actors-slide').slick({
-      dots: true,
-      infinite: false,
-      speed: 300,
-      slidesToShow: 4,
-      slidesToScroll: 4,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            infinite: true,
-            dots: true
-          }
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2
-          }
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1
-          }
-        }
-        
-      ]
-    });
-    
-};
+   
 
+     
+};
 
 
 //Rendering-----------------------------------------------------------------------------
@@ -309,9 +278,9 @@ const renderMovie = (movie, credits, trailer, similarMovies) => {
 const renderingActors = (credits) => {
   const actorSection = document.getElementById("actors");
   
-    credits.cast.slice(0, 7).map((credit) => {
+    credits.cast.slice(0, 4).map((credit) => {
     const actorDiv = document.createElement('div');
-    actorDiv.setAttribute('class','actor col h-1/5');
+    actorDiv.setAttribute('class','actordiv col h-1/5');
     const actorList = document.createElement('li');
     actorList.setAttribute('class', 'actor card ');
     
@@ -319,8 +288,10 @@ const renderingActors = (credits) => {
      <div class = "card-body info-actor">
           <p >${credit.name}</p>
      </div>`;
-    actorList.addEventListener("click", () => {
-     //showSingleActor(credit);-------------------------Hadi is working on it
+     //------------------EventListener----------------------------------------------------
+     document.getElementsByClassName('actordiv');
+     actorDiv.addEventListener("click", () => {
+      fetchSingleActor(actorID);
     });
     actorDiv.appendChild(actorList);
 
@@ -366,12 +337,64 @@ const renderingCompanies = (movie) => {
 }
 
 
-const showSingleActor = (credit) => {
+//we need person ID to use function below
+function fetchSingleActor(actorID){
+  fetch(`https://api.themoviedb.org/3/person/${actorID[i]}?api_key=${API_KEY}&language=en-US`)
+  .then(resp => resp.json())
+  .then(json => {
+    document.querySelector('.filter-button').style.display ='none'
+    document.querySelector('#filterBtn').style.display ='none'
+    document.querySelector('.imgDiv').style.display = 'none'
+// CONTAINER.innerHTML = ""
+CONTAINER.innerHTML = ` 
+<div class="row">
 
+<div class="col-md-12 ">
+<img class='bg-blend-multiply' id="movie-backdrop" src=${
+  PROFILE_BASE_URL + json.profile_path
+} height = 'auto'> <br>
+</div>
+  
+</div>
+<div class="col-md-8 ">
+    <h2 id="actor-name" class='text-5xl text-white'>${json.name}</h2>
+    
+    <p id="actor-birth" class='text-slate-50'> ${json.birthday}</p>
+    <p id="place-birth" class='text-slate-50'>${json.place_of_birth} Minutes</p>
+    <h3 class='text-slate-50 text-xl'>Overview:</h3>
+    <p id="biography" class='text-slate-50 w-3/5'><span class='line-clamp-4'>${json.biography}<span></p>
+    <button id="truncate" class="my-4 underline text-slate-400">Read more...</button>
+
+    
+    </div>
+    
+    <br>
+    <div class='mt-6 mb-6  w-2/3'>
+    
+    </div>
+
+    <div>
+    <h3 class='text-white text-2xl mt-6'>Other movies of the actor:</h3>
+
+    <div id = 'similar-movies' class='row '>
+    </div>
+</div>
+
+</div>`
+;
+
+
+})
+
+fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=primary_release_date.desc&include_adult=false&include_video=false&page=1&with_people=${json.id}&with_watch_monetization_types=flatrate`)
+.then(resp => resp.json())
+.then(data => {
+renderingSimilarMovies(data)
+
+})
 }
 
-
-//Fetching for Filter--------------------------------------
+//Fetching for Filter------------------------------------------------------------------------
 
 
 function fetchingTopRated(){
@@ -390,13 +413,49 @@ function fetchingTopRated(){
       }
       console.log(fetchingReleaseDate());*/
     
+      // Getting movie genres 
+let isGenreSelected = false
+
+fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`)
+.then(resp => resp.json())
+.then(json => {
+
+  const dropDownMovies = document.getElementById('drop-down')
+  const genresListJson = json.genres
+  
+
+  for(let i = 0; i < genresListJson.length; i++){
+
+    const option = document.createElement('option')
+    option.value = genresListJson[i].id
+    option.textContent = genresListJson[i].name
+
+
+    dropDownMovies.appendChild(option)
+  }
+
+  dropDownMovies.addEventListener('change', (e) => {
+    isGenreSelected = true
+
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${e.target.value}&with_watch_monetization_types=flatrate`)
+    .then(resp => resp.json())
+    .then(json => {
+
+      CONTAINER.innerHTML =''
+      renderMovies(json.results)
+    })
+    
+  })
+
+
+
+})
 
 // Home Button function
 const homeBtn = document.getElementById('homeBtn')
 homeBtn.addEventListener('click', () => {
   window.location.reload()
 })
-
 
 // Filter > relaese year slider function
 let slider1 = document.getElementById('yearRange')
@@ -484,6 +543,7 @@ const findMoviesBtn = document.getElementById('giveMeMoviesBtn')
   })
 
 
+<<<<<<< HEAD
 // Getting movie genres 
 let isGenreSelected = false
 
@@ -521,6 +581,8 @@ fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=
 })
 =======
 
+=======
+>>>>>>> b86e7b8897c601a2e7f026d73cf70aa8cc817157
 
 >>>>>>> 38bc4028dc835bc6572d1227fb6e794809d3657b
 document.addEventListener("DOMContentLoaded", autorun);
