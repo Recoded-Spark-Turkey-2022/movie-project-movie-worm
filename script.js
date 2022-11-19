@@ -485,7 +485,7 @@ let selectedGenreId = ''
  const MainDiv = document.getElementById('main-content')
  
  ActorListBtn.addEventListener('click' , () => {
-  fetch('https://api.themoviedb.org/3/person/popular?api_key=625cc5d6d6b0bd1d25f0e5c74c55dd1e&language=en-US&page=1')
+  fetch(`https://api.themoviedb.org/3/person/popular?api_key=${apiKey}&language=en-US&page=1`)
   .then(res => res.json())
   .then(json => {
     const Allactors = json.results
