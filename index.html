@@ -14,14 +14,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800&display=swap" rel="stylesheet">
-
-
+<link href='https://fonts.googleapis.com/css?family=Bowlby One SC' rel='stylesheet'>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&family=Open+Sans:wght@300;600&family=Work+Sans:wght@800&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="">
          <!-- Navbar -->
 
               
@@ -30,19 +29,19 @@
 <div class="flex flex-col justify-center items-center lg:flex-row lg:justify-around lg:items-center mt-1  w-full">
 
     <!-- Our logo -->
-<div> 
-    <img class= 'lg:w-16' src="./logo2.png" alt="logo">
+<div class=""> 
+    <img class= 'lg:w-20 max-md:w-10 max-sm:w-10' src="./logo2.png" alt="logo">
 </div>
     <!-- Search box -->
-    <div class="search-input w-2/5">
-<div class="flex items-center justify-center w-full" > 
-    <input type="text" placeholder="Search.." name="searchField" class="border w-8/12 border-slate-400 rounded-lg"
-    id="search" action="" autocomplete="off">
+    <div class="inline-flex flex-col justify-center relative text-gray-500" >
+        <input type="text" placeholder="Search.." name="searchField" class="p-2 pl-8 rounded border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-transparent";
+        id="search" action="" autocomplete="off">
+    <ul  id="resultsList" > 
+        <!--<button id="buttonList" class="pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-yellow-50 hover:text-gray-900" > -->
 
-<ul  id="resultsList" class="border w-8/12 border-slate-400 rounded-lg bg-red-20"> <ul>  </div>
-<div class="autoWrapper" id="autoWrapper">
-</div>
-</div>
+        </ul>
+    </div>
+
             <!-- Right part of Navbar  -->
 <div class="flex flex-row justify-center gap-1 lg:w-6/12 w-full">
 
@@ -58,10 +57,10 @@
         <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full" id="homeBtn">Home</button>
     </div>
     <div class="w-3/12 sm:h-full h-14">
-        <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full shrink">Actor List</button>
+        <button id="Actor_list" class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full shrink">Actor List</button>
     </div>
     <div class="w-3/12 sm:h-full h-14">
-        <button class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full">About Us</button>
+        <button id='about' class="border border-slate-400 rounded-lg p-1 text-center w-full bg-white h-full">About Us</button>
     </div>
 </div>
 </div>
@@ -69,11 +68,10 @@
 </nav>
 
        <section class="main flex flex-wrap flex-col items-center justify-center  " id="main">
-    
         <br> 
         
         <div class="filter-button">
-            <label for="dropdown">Sort By</label>
+            <label for="dropdown" class="text-slate-50">Sort By</label>
             <select name="dropdown" id="dropdown-filter">
                 <option value="none" disabled selected>None</option>
                 <option value="popular" id="popular">Popular</option>
@@ -82,6 +80,21 @@
             </select>
         </div>
     </section>
+    <section class="header ">
+       <div class="w-3/4 max-lg:hidden">
+            <p class="title  absolute top-40 z-20 left-56 max-md:text-2xl max-sm:text-sm bg-gradient-to-r from-indigo-500 rounded-sm">Welcome to <br> 
+                <span class="title-i max-md:text-3xl max-sm:text-sm">MOVIE WORM</span>
+            </p>
+        </div>
+        <div class="imgDiv pt-6 w-full flex flex-wrap flex-col items-center justify-center ">
+            <img id="banner-img" class="rounded-md w-3/4 blur-[2px]"  src="./LS-Video-PremiumChannels_TMC_Hero-Mobile.jpg" alt="">
+        
+        </div>
+       <div class="slick flex justify-center w-full max-sm:hidden">
+       <div class="carousel-div flex flex-row  items-center justify-center w-3/4"></div>
+       </div>
+    </section>
+
     <section class="filter-menu h-full flex flex-col items-center justify-center mt-2 w-full">
     
         <!-- Filter button -->
@@ -120,10 +133,12 @@
 </section>
 
     <div class="container flex flex-wrap items-center justify-center" >
+        
+         <div class="actor-list-div flex flex-wrap items-center justify-center "></div>
        
     </div>
     <footer class="w-full flex flex-col items-center gap-2 bg-zinc-50 mt-5">
-        <!-- Coperight part -->
+        <!-- Copyright part -->
         <div class="w-full flex flex-col items-center justify-center border-b-2 border-slate-400 text-center p-1">
             <p>
                 This website is protected by International copyright laws. Reproduction and usage without written permission is prohibited.
@@ -188,7 +203,9 @@
     </footer>
     
     
-
+    
+   
+    
     <script type="text/javascript" src="script.js">
        
     </script>

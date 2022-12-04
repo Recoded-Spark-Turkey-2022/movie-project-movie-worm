@@ -6,15 +6,17 @@ const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
 const API_KEY= 'c63e3e406a6a0477c30d877a6acf90b1';
-const main = document.getElementById('main');
+const subcontent = document.querySelector('.actor-list-div');
 const filtering = document.getElementsByClassName('filter-menu');
-const imgDiv = document.createElement('div');
+const imgDiv = document.querySelector('.imgDiv')
 const apiKey = '00c07d6d1de18f45f48a74210ba62760'
+const header = document.querySelector('.header');
 
 // Don't touch this function please
 const autorun = async () => {
   const movies = await fetchMovies();
   renderMovies(movies.results);
+  renderBanner(movies.results);
 
 };
 
@@ -81,10 +83,7 @@ const fetchMovie = async (movieId) => {
 function searchMovie(searchValue) {
   return fetch(`${searchMul}?api_key=${apiKey}&query=${searchValue}`)
     .then((response) => response.json())
-    .then((jsonData) => {
-      const go = jsonData.results;
-      return go;
-    });
+    .then((jsonData) => jsonData.results);
 }
 
 // this function is to render the fetch ,
@@ -94,22 +93,30 @@ function renderResult(searchResults) {
   if (searchfield.value.length > 0) {
     tag.innerHTML = "";
     const list = searchResults.slice(0, 3).map((results) => {
-      if (results.title) {
-        tag.innerHTML +=
-          `<li class="movie-search" id="${results.id}">` +
-          results.title +
-          "</li>";
+      if (results.title && results.media_type === "movie") {
+        tag.innerHTML += `<li>
+          <button 
+       
+           class="movie-search pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-yellow-50 hover:text-gray-900" 
+           id="${results.id}">${results.title}</button>
+           </li>`;
       } else if (results.name) {
-        tag.innerHTML += `<li id="${results.name}">` + results.name + "</li>";
+        tag.innerHTML += `<li> 
+          <button 
+          class="movie-search pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-yellow-50 hover:text-gray-900" 
+          id="${results.id}">
+    
+          ${results.name}
+          </button>
+          </li>`;
       }
     });
   } else {
     tag.innerHTML = "";
   }
-  createAuto(renderResult);
-
+  const xx = searchMovie(searchResults);
+  console.log({ xx });
   let elementsArray = document.querySelectorAll(".movie-search");
-
   elementsArray.forEach(function (elem) {
     elem.addEventListener("click", function () {
       movieDetails({ id: parseInt(elem.id) });
@@ -125,20 +132,45 @@ window.onload = async () => {
   };
 };
 
-function createAuto(list) {
+/*function createAuto(list) {
   const listEl = document.createElement("resultsList");
   listEl = "movie-search";
-}
+}*/
+
+//Banner Design-----------------------------------------------
+const renderBanner = (movies) => {
+  movies.slice(14, 20).map((movie) => {
+
+    
+    const carouselDiv = document.querySelector('.carousel-div');
+    const carouselSlide = document.createElement("div");
+    carouselSlide.className +='carousel-slide col h-32';
+    carouselSlide.innerHTML = `<img src="${BACKDROP_BASE_URL + movie.backdrop_path}" class='carousel-img cursor-pointer'> `;
+    
+    carouselDiv.appendChild(carouselSlide);
+     carouselSlide.addEventListener("click", () => {
+      movieDetails(movie);
+      document.querySelector(".header").style.display = "none";
+      document.querySelector(".filter-menu").style.display = "none";
+      document.querySelector('.filter-button').style.display = "none";
+
+    });
+    
+  });}
+
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
+  
+ 
+
   movies.map((movie) => {
-    
+
     const movieDiv = document.createElement("div"); 
     movieDiv.id = 'movie'
     movieDiv.className += 'h-1/5'
     movieDiv.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster" class='h-3/6'>
+        <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${movie.title} poster" class='h-3/6 cursor-pointer '>
        <div class='info'>
         <h3>${movie.title}</h3>
         
@@ -153,22 +185,24 @@ const renderMovies = (movies) => {
     movieDiv.addEventListener("click", () => {
       movieDetails(movie);
       imgDiv.remove(imgDiv);
-      document.querySelector("main").style.display = "none";
+      document.querySelector(".header").style.display = "none";
+      document.querySelector(".filter-menu").style.display = "none";
       document.querySelector('.filter-button').style.display = "none";
       
     });
     CONTAINER.appendChild(movieDiv);
+    
    
 
   });
   
   
   
-  homepageContent();
+  //homepageContent();
 
 };
 //Homepage ImageDiv-----------------------------------------
-const homepageContent = function (){
+/*const homepageContent = function (){
  const main = document.getElementById('main');
   imgDiv.className += "imgDiv pt-6 w-full flex flex-wrap flex-col items-center justify-center";
   imgDiv.innerHTML = `<img  class="rounded-md w-3/4  "  src="./LS-Video-PremiumChannels_TMC_Hero-Mobile.jpg" alt="">`;
@@ -177,8 +211,8 @@ const homepageContent = function (){
  
 main.appendChild(imgDiv);
 
-}
-//<h1 class='css text-7xl font-extrabold tracking-widest'>MOVIE WORM</h1> <br> <p class='csss text-3xl'>Do not Miss the Newest!</p>
+}*/
+
 //Coloring Vote-----------------------------------------
 function coloring(vote) {
   if(vote>= 8){
@@ -191,15 +225,6 @@ function coloring(vote) {
       return "red"
   }
 }
-/*function filterPopular(){
-const popularOption = document.getElementById('popular');
-popularOption.addEventListener('click', () =>{
-  const popular = fetchingPopular();
-  
-  CONTAINER.innerHTML='';
-  renderMovies(popular);
-})
-}*/
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie, credits, trailer, similarMovies) => {
@@ -230,7 +255,7 @@ const renderMovie = (movie, credits, trailer, similarMovies) => {
             <div id='director'></div>
             <p id="original-language" class='text-orange-300'>Original Language: <span style="text-transform: uppercase;">${movie.original_language}</span></p>
             <h3 class='text-white text-2xl'>Actors:</h3>
-            <div id="actors"  class="actors-slide row flex flex-wrap w-3/4" >
+            <div id="actorpart"  class="actors-slide row flex flex-wrap w-3/4" >
             </div>
             </div>
             
@@ -246,7 +271,7 @@ const renderMovie = (movie, credits, trailer, similarMovies) => {
             <div id = 'similar-movies' class='row '>
             </div>
             </div>`;
-    
+            
     renderingActors(credits);
     renderingSimilarMovies(similarMovies);
     renderingCompanies(movie);
@@ -259,17 +284,17 @@ const renderMovie = (movie, credits, trailer, similarMovies) => {
 //Rendering-----------------------------------------------------------------------------
 
 const renderingActors = (credits) => {
-  const actorSection = document.getElementById("actors");
+  const actorSection = document.getElementById("actorpart");
   
     credits.cast.slice(0, 4).map((credit) => {
     const actorDiv = document.createElement('div');
     actorDiv.setAttribute('class','actordiv col h-1/5');
     const actorList = document.createElement('li');
-    actorList.setAttribute('class', 'actor card ');
+    actorList.setAttribute('class', 'actorl card ');
 
 
     
-    actorList.innerHTML = `<img class='actor-pic' value='${credit.id}' src="${BACKDROP_BASE_URL + credit.profile_path}">
+    actorList.innerHTML = `<img class='actor-pic cursor-pointer' value='${credit.id}' src="${BACKDROP_BASE_URL + credit.profile_path}">
      <div class = "card-body info-actor" '>
           <p >${credit.name}</p>
      </div>`;
@@ -290,7 +315,7 @@ const renderingSimilarMovies = (similarMovies) => {
     const movieDiv = document.createElement("div");
     movieDiv.className += "similar col h-2/5";
     const similarmovieList = document.createElement("li");
-    similarmovieList.className += "similar card";
+    similarmovieList.className += "similar card cursor-pointer";
     similarmovieList.innerHTML = `
         <img src="${BACKDROP_BASE_URL + movie.poster_path}" alt="${movie.title}"  >
         <div class = "card-body info-movie">
@@ -375,22 +400,6 @@ renderingSimilarMovies(data)
 //Fetching for Filter------------------------------------------------------------------------
 
 
-function fetchingTopRated(){
-
-    fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`)
-    .then(response => response.json())
-    .then(data => console.log(data.results));
-    }
-     console.log(fetchingTopRated());
-
-     /*function fetchingReleaseDate(){
-      fetch(`https://api.themoviedb.org/3/movie/{movie_id}/release_dates?api_key=c63e3e406a6a0477c30d877a6acf90b1`)
-      .then(response => response.json())
-      .then(data => console.log(data.results));
-      }
-      console.log(fetchingReleaseDate());*/
-    
-      // Getting movie genres 
 let isGenreSelected = false
 
 fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`)
@@ -424,15 +433,80 @@ fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=
     
   })
 
-
-
 })
 
 // Home Button function
-const homeBtn = document.getElementById('homeBtn')
-homeBtn.addEventListener('click', () => {
-  window.location.reload()
+const homeBtn = document.getElementById("homeBtn");
+homeBtn.addEventListener("click", () => {
+  window.location.href = "./index.html";
+});
+// About Us Page-------------------------------------
+const aboutBtn=document.querySelector('#about');
+aboutBtn.addEventListener('click', ()=> {
+  document.querySelector(".header").style.display = "none";
+      document.querySelector(".filter-menu").style.display = "none";
+      document.querySelector('.filter-button').style.display = "none";
+      CONTAINER.innerHTML = `
+      <div class='about-page flex justify-center gap-5'>
+      
+      <img class='ab-img w-1/2 ' src='./movie.png' > 
+      <div class='w-1/2 '>
+      <h2 class='ab-text text-slate-300 font-bold'>ABOUT US</h2> <br>
+      <p class=" text-white ">
+         Welcome to our website. <span class="text-orange-400 font-bold text-2xl"> Movie Worm</span> is a website created by using data of TMDB for people like movie-worm! You will find whatever you need in the website. Our amazing team built it for you! Better Together!</p>
+                  </div> 
+      </div>`;
+      
 })
+
+// Actors List Page
+const ActorListBtn = document.getElementById("Actor_list");
+
+ActorListBtn.addEventListener("click", () => {
+      document.querySelector(".header").style.display = "none";
+      document.querySelector(".filter-menu").style.display = "none";
+      document.querySelector('.filter-button').style.display = "none";
+  fetch(
+    `https://api.themoviedb.org/3/person/popular?api_key=${apiKey}&language=en-US&page=1`
+  )
+    .then((res) => res.json())
+    .then((json) => {
+      const Allactors = json.results;
+
+      CONTAINER.innerHTML = "";
+
+      for (let i = 0; i < Allactors.length; i++) {
+
+        const cardContainer = document.createElement("div");
+        cardContainer.className += 'single-actor cursor-pointer'
+        cardContainer.id += 'actors'
+        const img = document.createElement("img");
+        const actrorName = document.createElement("h5");
+        actrorName.innerText = Allactors[i].name;
+
+        cardContainer.appendChild(img);
+        cardContainer.appendChild(actrorName);
+        subcontent.appendChild(cardContainer);
+        CONTAINER.appendChild(subcontent);
+
+        //fetching actors photos for actor list page
+        fetch(
+          `https://api.themoviedb.org/3/person/${Allactors[i].id}/images?api_key=${apiKey}`
+        )
+          .then((res) => res.json())
+          .then((json) => {
+            img.setAttribute(
+              "src",
+              BACKDROP_BASE_URL + json.profiles[0].file_path
+            );
+          });
+        cardContainer.addEventListener("click", () => {
+          fetchSingleActor(`${Allactors[i].id}}`)
+        });
+      }
+    });
+});
+
 
 // Filter > relaese year slider function
 let slider1 = document.getElementById('yearRange')
@@ -525,7 +599,7 @@ const findMoviesBtn = document.getElementById('giveMeMoviesBtn')
   //Fetching for Sorting--------------------------------------
 
   function fetchingReleaseDate(){
-    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=primary_release_date.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`)
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=primary_release_date.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`)
     .then(response => response.json())
     .then(json => {
       console.log(json)
